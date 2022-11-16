@@ -1,0 +1,6 @@
+{
+    "user":"Hello",
+    "pwd":"abc",
+    "host":"mysql_db",
+    "database":"comp3335"
+}

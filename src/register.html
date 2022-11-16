@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    <title>IT-Sales Register</title>
+    <style>
+      #inputForm{
+        width: 40%;
+        margin: auto;
+        height: 600px;
+        border-radius: 10px;
+        background: white;
+        margin-top: 30px;
+
+        
+      }
+
+      #inputForm > h1{
+        text-align: center;
+        color:  rgb(208, 201, 201);
+        padding-top: 20px;
+      }
+
+      #form_Input_Bound{
+        padding-left: 80px;
+        margin-top: 20px;   
+      }
+      #form_Input_Bound >input{
+        width: 80%;
+      }
+      #submit{
+        border: none;
+        color:  rgb(208, 201, 201);
+        width: 50%;
+        margin-top: 50px;
+        display: inline-block;
+        border-radius: 3px;
+        height: 30px;
+        margin-left: 25%;
+        
+      }
+      .acField{
+        padding-top: 40px;
+      }
+      #submit:hover{
+        background-color: #1A5276;
+        cursor: pointer;
+      }
+    </style>
+</head>
+<body style="background-color: #1A5276;">
+      <form action="/register.php" method="POST">
+        <div id="inputForm">
+            <h1>Account Registration</h1>
+            <div id='form_Input_Bound'>
+                <label for="user_id">User ID</label><br>
+                <input type="input" placeholder="user_id" id="user_id"  name='userID'require>
+            </div>
+
+            <div id='form_Input_Bound'>
+                <label for="user_id">Passwords</label><br>
+                <input type="input" placeholder="Password" id="user_id" name='pwd' require>
+            </div>
+            <div id='form_Input_Bound' class="acField">
+                <label for="user_id">Account Type</label>&nbsp;
+
+                <select name="userType" id="userType" style="width: 45%">
+                    <option value=""></option>
+                </select>
+            </div>
+
+            <button id="submit"  type="submit">Submited </button>
+        
+        </div>
+      </form>
+
+  
+    
+</body>
+</html>
