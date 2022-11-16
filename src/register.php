@@ -1,5 +1,4 @@
 <?php
- 
  $roleMap = array(
   "am" => "Admin",
   "IDM" => "IT_Direct_Manager",
@@ -63,10 +62,7 @@ if ($conn-> connect_errno) {
 
     $preState->bind_param("sss",$acType,$user_id,$_POST["pwd"]);
     $preState->execute();
-
-    
-
-  
+    echo  "<script>window.location.href='register.html'; </script>";
 }
 
 
