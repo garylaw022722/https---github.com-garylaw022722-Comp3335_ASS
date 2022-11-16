@@ -68,6 +68,7 @@ create table Orders(
  
  Drop table if exists Project;
  create table Project(
+    SJSABJAS
 	project_id  int(10) not null,
     title varchar(50) not null,
     team_id int(10) not  null,
