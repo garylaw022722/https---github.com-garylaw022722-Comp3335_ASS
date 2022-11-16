@@ -1,8 +1,16 @@
 <?php
  
+ $roleMap = array(
+  "am" => "Admin",
+  "IDM" => "IT_Direct_Manager",
+  "IDS" =>"IT_Dept_Staff",
+  "HRDS" =>"HR_Dept_Staff",
+  "SDS"  =>"Sales_Dept_Staff"
+);
+
 $user_id = $_POST["userID"];
 $password = $_POST["pwd"];
-$acType = 'Sales_Dept_Staff' ;
+$acType = $roleMap[$_POST["userType"]];
 $internal_uid =  $user_id.'@%';
 
  //128 string
@@ -28,38 +36,37 @@ $conn = new mysqli(
      );
 
 // // Check connection
+
+
+
+
 if ($conn-> connect_errno) {
   echo "Failed to connect to MySQL: " . $conn -> connect_error;
   exit();
 }else{
-  mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-  $createdBy ="skaksa@%";
-  $sql ="INSERT INTO `Account`(`user_id`, `password`, `salt`,  `created_By`, `acType`, `internal_uid`) 
-  VALUES (?,?,?,?,?,?)";
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    $createdBy ="skaksa@%";
+    $sql ="INSERT INTO `Account`(`user_id`, `password`, `salt`,  `created_By`, `acType`, `internal_uid`) 
+    VALUES (?,?,?,?,?,?)";
+    
+    $preState =$conn->prepare($sql);
+    $preState->bind_param("ssssss",$user_id,$password,$salt,$createdBy ,$acType,$internal_uid);
+    $preState->execute();
+    
+    $sql = "call createUser(?,?,?)";
+    $preState =$conn->prepare($sql);
+    if($acType =="IT_Direct_Manager"){
+
+      $acType='IT_Direct_Manager" , "IT_Dept_Staff';
+    }
+
+    $preState->bind_param("sss",$acType,$user_id,$_POST["pwd"]);
+    $preState->execute();
+
+    
+
   
-  $preState =$conn->prepare($sql);
-  $preState->bind_param("ssssss",$user_id,$password,$salt,$createdBy ,$acType,$internal_uid);
-  $preState->execute();
-  
-  $sql = "call createUser(?,?,?)";
-  $preState =$conn->prepare($sql);
-  $preState->bind_param("sss",$acType,$user_id,$_POST["pwd"]);
-  $preState->execute();
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
 }
 
 
