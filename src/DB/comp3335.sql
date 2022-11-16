@@ -82,7 +82,6 @@ create table Orders(
     team_id int(10)  not null,
     user_id varchar(20)  not null,
     project_id int(10) not null,
-    internal_uid varchar(40) not null,
     Primary Key (team_id ,user_id)
  );
 
