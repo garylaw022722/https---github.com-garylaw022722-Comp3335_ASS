@@ -106,5 +106,11 @@ insert into Department(deptName) values("Sales Department");
  
 insert into Employee values("MSA1234585", 1,"Gary","Law" ,"2002-02-23",10000,"M","SHP","S1919388","1282828");
 insert into Employee values("Mandy2882", 1,"Mandy","Wong" ,"1902-02-23",10000,"M","SHP","Z1919388","1212828");
-
-insert into Project (Project_id ,title,team_id) values(1,"City Mapper Apps ",1);
+insert into Employee values("jo324423", 1,"Jo","Ng" ,"1999-02-23",4000,"M","SHP","Y1155968","2525989");
+insert into Employee values("ko332256", 1,"Jacky","Chan" ,"1999-08-26",2000,"M","SHP","Y5566889","9090556");
+insert into Project (Project_id ,title,team_id) values(1,"City Mapper Apps",1);
+insert into Project (Project_id ,title,team_id) values(2,"Fan e-commerce",2);
+insert into Task (task_id, project_id, assigner, assignee, details) values(1, 1, "MSA1234585", "Mandy2882", "UI Design");
+insert into Task (task_id, project_id, assigner, assignee, details) values(2, 2, "jo324423", "ko332256", "Business Model Development");
+insert into Team values(1, "MSA1234585", 1);
+insert into Team values(2, "jo324423", 2);

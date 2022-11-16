@@ -81,25 +81,33 @@ require_once "../../php/db_connect.php";
   <table style="width:100%;margin-top:30px;" id="grid">
     <thead>
       <tr>
-        <th>Project ID</th>
-        <th>Project Title</th>
-        <th>Team ID</th>
         <th>Task ID</th>
-        <th>Create at</th>
+        <th>Project ID</th>
+        <th>Project Name</th>
+        <th>Assigner</th>
+        <th>Assignee</th>
+        <th>Details</th>
+        <th>Status</th>
+        <th>Start Date</th>
+        <th>End Date</th>
       </tr>
     </thead>
     <?php
-    $sql = "SELECT * FROM comp3335.Project;";
+    $sql = "SELECT comp3335.Task.*, comp3335.Project.title FROM comp3335.Task INNER JOIN comp3335.Project on comp3335.Task.project_id=comp3335.Project.project_id;";
     $result = $con->query($sql);
 
     if ($result->num_rows > 0) {
       // output data of each row
       while ($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["project_id"] . "</td>
+        echo "<tr><td>" . $row["task_id"] . "</td>
+        <td>" . $row["project_id"] . "</td>
         <td>" . $row["title"] . "</td>
-        <td>" . $row["team_id"] . "</td>
-        <td>" . $row["task_id"] . "</td>
-        <td>" . $row["createAt"] . "</td></tr>";
+        <td>" . $row["assigner"] . "</td>
+        <td>" . $row["assignee"] . "</td>
+        <td>" . $row["details"] . "</td>
+        <td>" . $row["status"] . "</td>
+        <td>" . $row["start_Date"] . "</td>
+        <td>" . $row["end_Date"] . "</td></tr>";
       }
       echo "</table>";
     } else {
@@ -108,10 +116,10 @@ require_once "../../php/db_connect.php";
     }
     ?>
 
-  </div>
-  </div>
-  </div>
-  </div>
+    </div>
+    </div>
+    </div>
+    </div>
 
 
 
