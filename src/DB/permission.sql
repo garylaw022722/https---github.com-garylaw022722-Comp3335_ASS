@@ -28,7 +28,7 @@ Grant All PRIVILEGES on comp3335.* to 'Admin' with Grant Option;
 
 
 DELIMITER //
- create  PROCEDURE createUser(in userRole varchar(40) , in userId varchar(20) ,in pwd varchar(256)) 
+ create  PROCEDURE createUser(in userRole varchar(150) , in userId varchar(20) ,in pwd varchar(256)) 
  BEGIN
 
     SET @userCreate = CONCAT('CREATE USER "',UserId,'"@"%" IDENTIFIED BY "',pwd,'" ');
