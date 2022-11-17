@@ -76,26 +76,29 @@ require_once "../../php/db_connect.php";
 </style>
 
 <body>
+
+
   <table style="width:100%;margin-top:30px;" id="grid">
     <thead>
       <tr>
+        <th>Team ID</th>
         <th>User ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Department Name</th>
+        <th>User Name</th>
+        <th>Project ID</th>
+        <th>Project Name</th>
       </tr>
     </thead>
     <?php
-    $sql = "SELECT * FROM comp3335.itData;";
+    $sql = "SELECT comp3335.Team.*, comp3335.Project.title, comp3335.itData.firstName, comp3335.itData.lastName FROM comp3335.Team INNER JOIN comp3335.Project on comp3335.Team.project_id=comp3335.Project.project_id INNER JOIN comp3335.itData on comp3335.Team.user_id=comp3335.itData.user_id;";
     $result = $con->query($sql);
-
     if ($result->num_rows > 0) {
       // output data of each row
       while ($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["user_id"] . "</td>
-        <td>" . $row["firstName"] . "</td>
-        <td>" . $row["lastName"] . "</td>
-        <td>" . $row["deptName"] . "</td></tr>";
+        echo "<tr><td>" . $row["team_id"] . "</td>
+        <td>" . $row["user_id"] . "</td>
+        <td>" . $row["firstName"] . " " . $row["lastName"] . "</td>
+        <td>" . $row["project_id"] . "</td>
+        <td>" . $row["title"] . "</td></tr>";
       }
       echo "</table>";
     } else {
@@ -103,11 +106,11 @@ require_once "../../php/db_connect.php";
       echo "0 results";
     }
     ?>
+    </div>
+    </div>
+    </div>
+    </div>
 
-    </div>
-    </div>
-    </div>
-    </div>
 
 </body>
 
