@@ -9,8 +9,6 @@ if(isset(
     $assigner = $_POST['assigner'];
     $assignee = $_POST['assignee'];
     $details = $_POST['details'];
-    $status = $_POST['status'];
-    $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
 
     $sql = "INSERT INTO Task(project_id,assigner,assignee,details,end_Date) 
