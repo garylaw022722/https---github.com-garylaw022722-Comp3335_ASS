@@ -23,7 +23,8 @@ app.controller('ctrl', function($scope ,$http) {
     $http.post("AdminController.php" ,$scope.data)
     .then(function(response){
       $scope.content= response.data;
-      
+      location.reload();
+
     })
   }
 
