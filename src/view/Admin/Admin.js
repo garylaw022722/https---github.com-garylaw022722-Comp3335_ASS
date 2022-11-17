@@ -2,9 +2,9 @@
 let app = angular.module('acDetails', []);
 app.controller('ctrl', function($scope ,$http) {
   //declared data
-  $scope.showEditForm =true;
+  $scope.showEditForm =false;
   $scope.RevokeAllRole =false;
-  $scope.pwd=""
+  $scope.pwd="";
 
 
   $scope.getAccount_Data = function(){
