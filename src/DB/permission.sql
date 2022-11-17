@@ -25,6 +25,7 @@ Grant insert,update,delete on comp3335.Task to 'IT_Direct_Manager';
 create Role  'Admin' ;
 Grant select,insert,update on comp3335.Account to 'Admin';
 Grant All PRIVILEGES on comp3335.* to 'Admin' with Grant Option;
+REVOKE Create ,DELETE,DROP  on *.* from 'Admin';
 
 
 DELIMITER //
@@ -44,12 +45,24 @@ DELIMITER //
 	   execute setRole_Cmd;
 
  END //
+
+
 GRANT EXECUTE ON PROCEDURE createUser TO 'Admin';
 
+ create  PROCEDURE Disable_USR_Account( in userId varchar(20)) 
+ BEGIN
+    SET @disableAccount= CONCAT('Alter USER  "',UserId,'"@"%"  ACCOUNT LOCK');
+		 PREPARE  disableAccountCmd FROM @disableAccount;
+		 execute disableAccountCmd;
+		
+     
+	SET @RevokeUserAccount =  CONCAT(' revoke all  privileges  on *.* From  "' ,UserId,'"@"%"');
+		PREPARE RevokeUserCmd FROM @RevokeUserAccount ;
+		execute  RevokeUserCmd;
+	
 
-
-
-
+ END //
+ GRANT EXECUTE ON PROCEDURE Disable_USR_Account TO 'Admin';
 
 
 
@@ -60,5 +73,10 @@ Grant select,insert,update on comp3335.Orders to 'Sales_Dept_Staff';
 Grant select,insert,update on comp3335.Product to 'Sales_Dept_Staff';
 Grant select,insert,update on comp3335.Customer to 'Sales_Dept_Staff';
 
+
+
+create user 'Hello'@'%' identified by "abc";
+grant "Admin" to 'Hello'@'%' ;
+set default role  "Admin" to 'Hello'@'%' ;
 
 
