@@ -49,7 +49,7 @@ if ($_POST["action"]=="register"){
             $salt =base64_encode($salt);
             $concat_String = $password.$salt;
             $password= hash("sha256", $concat_String);
-
+            echo $concat_String."<br>";
             $createdBy ="skaksa@%";
             $sql ="INSERT INTO `Account`(`user_id`, `password`, `salt`,  `created_By`, `acType`, `internal_uid`) 
             VALUES (?,?,?,?,?,?)";
@@ -67,6 +67,6 @@ if ($_POST["action"]=="register"){
         
             $preState->bind_param("sss",$acType,$user_id,$_POST["pwd"]);
             $preState->execute();
-            echo  "<script>window.location.href='register.html'; </script>";
+            // echo  "<script>window.location.href='register.html'; </script>";
         }
     }

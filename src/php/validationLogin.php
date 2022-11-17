@@ -1,101 +1,91 @@
 <?php
-require_once "db_connect.php";
-if(isset($_POST["username"], $_POST["password"])){
-        //success   
-        $username = $_POST["username"];
-        $password = $_POST["password"];
+include("db_Connection.php");
+$user_id =$_POST["user_id"];
+$user_password=$_POST["password"];
 
-        $sql = "SELECT * FROM Account WHERE user_id ='".$username."'";
-        $rs = mysqli_query($con,$sql) or die(mysqli_error());
-        if(mysqli_num_rows($rs) > 0){
-            $sql1 = "SELECT acType FROM Account WHERE user_id = '".$username."'";
-            $rs1 = mysqli_query($con,$sql1) or die(mysqli_error());
-            $rc1 = mysqli_fetch_assoc($rs1);
-           
-           
-            if ($rc1["acType"] == "Admin"){//IT admin
-                while($rc = mysqli_fetch_assoc($rs)) {
-                    if($rc['username'] = $username && $rc['password'] == $password){
-                        session_start();
-                        $_SESSION["tappedID"] = "7";
-                         //  $_SESSION["OrganizationID"] = $rc['OrganizationID'];
-
-                        header("Location:../view/Admin/main.php");
-                    }else{
-                        header( "Location:../index.php?msg=".urlencode("Wrong Username and password"));
-                    }
-                }
-            }else if ($rc1["acType"] == "HR_Dept_Staff"){ //HR Staff
-                while($rc = mysqli_fetch_assoc($rs)) {
-                    if($rc['username'] = $username && $rc['password'] == $password){
-                        session_start();
-                        $_SESSION["tappedID"] = "6";
-
-                         //  $_SESSION["OrganizationID"] = $rc['OrganizationID'];
-
-                        header("Location:../view/HRStaff/main.php");
-                    }else{
-                        header( "Location:../index.php?msg=".urlencode("Wrong Username and password"));
-                    }
-                }
-            }else if ($rc1["acType"] == "IT_Dept_Staff"){ //IT Staff
-                while($rc = mysqli_fetch_assoc($rs)) {
-                    if($rc['username'] = $username && $rc['password'] == $password){
-                        session_start();
-                        $_SESSION["tappedID"] = "4";
-
-                       //set session
-                      //  $_SESSION["OrganizationID"] = $rc['OrganizationID'];
-                        header("Location:../view/ITStaff/main.php");
-                    }else{
-                        header( "Location:../index.php?msg=".urlencode("Wrong Username and password"));
-                    }
-                }
-            }else if ($rc1["acType"] == "IT_Direct_Manager"){ //manager account
-                while($rc = mysqli_fetch_assoc($rs)) {
-                    if($rc['username'] = $username && $rc['password'] == $password){
-                        session_start();
-                     //set session
-                     $_SESSION["tappedID"] = "1";
-
-                        //  $_SESSION["OrganizationID"] = $rc['OrganizationID'];
-                        header("Location:../view/Manager/main.php");
-                    }else{
-                        header( "Location:../index.php?msg=".urlencode("Wrong Username and password"));
-                    }
-                }
-            }else if ($rc1["acType"] == "Sales_Dept_Staff"){ //sales staff
-                while($rc = mysqli_fetch_assoc($rs)) {
-                    if($rc['username'] = $username && $rc['password'] == $password){
-                        session_start();
-                        $_SESSION["tappedID"] = "8";
-
-                        //set session
-                           //  $_SESSION["OrganizationID"] = $rc['OrganizationID'];
-                 
-                        header("Location:../view/SalesStaff/main.php");
-                    }else{
-                        header( "Location:../index.php?msg=".urlencode("Wrong Username and password"));
-                    }
-                }
-            }
+$config  = file_get_contents("../conFig/sa.json");
+$privkey = openssl_pkey_get_private(file_get_contents('../secure/server_SK.pem'));
+openssl_private_decrypt($config, $plaintext, $privkey); //,OPENSSL_NO_PADDING);
+$config_Data = json_decode($plaintext);
 
 
-        }  
-         else{
-            header( "Location:../index.php?msg=".urlencode("Wrong Username and password"));
-         }
+$conn = getConnection($config_Data);
+$sql ="Select salt , password ,acType,internal_uid from Account where user_id =?";
+$preState =$conn->prepare($sql);
+$preState->bind_param("s",$user_id);
+$preState->execute();
+$result =$preState->get_result();
 
 
-  
-  
-}else{
-  //  header( "Location:../index.php?msg=".urlencode("You have no permission"));
-  echo "no permisson";
-  echo  $_POST["username"];
-  echo $_POST["password"];
+
+$isSuccess_Authenticated =false;
+if(mysqli_num_rows($result)==0){    
+    echo "<h1>Login Fail</h1> try it again on <a href='../index.php'>index pages </a>";
+}
+else{ 
+    $data = mysqli_fetch_assoc($result);
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    $concat_String = $user_password.$data["salt"];
+   
+    $rehash_password= hash("sha256", $concat_String); 
+    $content = $data["password"];
+    $role =$data["acType"];
+    
+    if (!$data["password"]== $rehash_password)
+        $isSuccess_Authenticated =false;
+
+    
+    $isSuccess_Authenticated =true;
 }
 
+if ($isSuccess_Authenticated){
+    // disconnect root account;
+    $conn->close();
+   
+    //create json data
+    $sessionData=array(
+        
+        "host"=>$config_Data->host,
+        "user" =>$user_id,
+        "pwd"=> $user_password,
+        "database" => $config_Data->database,
+        "role"=>  $role
+    );
+        session_start();    
+    $hashed_uuid =hash("sha256",uniqid());
+
+    $_SESSION[$hashed_uuid]=json_encode($sessionData);
+    $_SESSION["id"] =$hashed_uuid;
+
+    switch ($role){
+        case 'HR_Dept_Staff':
+            $_SESSION["tappedID"] = "6";
+            header("Location:../view/HRStaff/main.php");
+            break;
+    
+        case 'IT_Dept_Staff':
+            $_SESSION["tappedID"] = "4";
+            header("Location:../view/ITStaff/main.php");
+            break;
+
+        case 'IT_Direct_Manager':
+            $_SESSION["tappedID"] = "1";
+            header("Location:../view/Manager/main.php");
+            break;
+
+        case 'Admin':
+            $_SESSION["tappedID"] = "7";
+            header("Location:../view/Admin/main.php");
+            break;
+        case 'Sales_Dept_Staff':
+            $_SESSION["tappedID"] = "8";
+            header("Location:../view/SalesStaff/main.php");
+            break;
+
+    }
 
 
-?>
+
+
+
+}

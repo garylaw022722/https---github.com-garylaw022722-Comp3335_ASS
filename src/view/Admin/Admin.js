@@ -11,7 +11,9 @@ app.controller('ctrl', function($scope ,$http) {
     $scope.data =JSON.stringify({"action":"getAC_data"})
     $http.post("AdminController.php" ,$scope.data)
     .then(function(response){
+    
       $scope.content= response.data;
+     
     })
     
   }

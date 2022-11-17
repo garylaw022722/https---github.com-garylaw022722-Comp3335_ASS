@@ -1,30 +1,10 @@
 <?php
-
-$roleMap = array(
-    "am" => "Admin",
-    "IDM" => "IT_Direct_Manager",
-    "IDS" => "IT_Dept_Staff",
-    "HRDS" => "HR_Dept_Staff",
-    "SDS"  => "Sales_Dept_Staff"
-);
-
+include("../../php/db_Connection.php");
 
 $request_data = json_decode(file_get_contents('php://input'), true);
-
-
-$config  = file_get_contents("../../conFig/sa.json");
-$privkey = openssl_pkey_get_private(file_get_contents('../../secure/server_SK.pem'));
-openssl_private_decrypt($config, $plaintext, $privkey); //,OPENSSL_NO_PADDING);
-$config_Data = json_decode($plaintext);
-
-
-$conn = new mysqli(
-    $config_Data->host,
-    $config_Data->user,
-    $config_Data->pwd,
-    $config_Data->database
-);
-
+session_start();
+$uuid =  $_SESSION["id"];
+$conn = getConnection(json_decode($_SESSION[$uuid]));
 
 $jsonData = array();
 
