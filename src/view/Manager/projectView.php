@@ -9,6 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <style>
 
   #tablePagination {
@@ -79,50 +80,91 @@ style="margin-top:30px;margin-left:30px;"
       <th>Title</th>
       <th>Team ID</th>
 	    <th>Task ID</th>
+      <th>Create At</th>
       <th>Command</th>
   
     </tr>
   </thead>
-  <tbody>
+<?php
+include('../../php/db_connect.php');
+$sql = "SELECT * FROM Project";
+$result = $con->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    ?>
+<tbody>
     <tr >
       <th style="padding-top:20px;">
-        1
-      </th>
-      <th style="padding-top:20px;">
-        1
+      <?php echo $row["project_id"]?>
       </th> 
       <th style="padding-top:20px;">
-      1
-      </th>
+      <?php echo $row["title"]?>
+      </th> 
       <th style="padding-top:20px;">
-     1
-      </th>
-    
+      <?php echo $row["team_id"]?>
+      </th> 
       <th style="padding-top:20px;">
-      
-      <input type="button" 
+      <?php echo $row["task_id"]?>
+      </th> 
+      <th style="padding-top:20px;">
+      <?php echo $row["createAt"]?>
+      </th> 
+       
+<!--record project id in button-->
+<!--
+<th style="padding-top:20px;">
+
+<form 
+id="search-form" >
+  <input type="hidden" 
+  name="project_id"
+  value="3"/>
+<input type="button"
+id="search-button" name="search-button"
       data-toggle="modal"  
       data-target="#editProjectModal"
       value="Edit" 
-      class="btn btn-primary"/>
+      class="btn btn-primary"
+      >
+  </th>
+  </form>
+  -->
 
 
-      <button type="button" 
-      data-toggle="modal"  
-      data-target="#deleteProjectModal"
-      class="btn btn-danger">Delete</button>
-        
-      </th>
-</tr>
-  </tbody>
+  <th style="padding-top:20px;">
+    <form action="php/deleteProject.php" method="post" >
+      <input type="hidden" 
+      name="project_id"
+      value="<?php echo $row['project_id']?>" />
+      <input type="submit"
+      value="Delete"
+      class="btn btn-danger"/>
+  </form>
+  </th>
+
+
+
+      </tr>
+      </tbody>
+<?php
+
+
+  }
+} else {
+  echo "0 results";
+}
+
+?>
+
 </table>
+</div>
+</div>
+</div>
+</div>
 
 
-
-</div>
-</div>
-</div>
-</div>
 
         <!--Form Create project Record-->
        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -135,19 +177,50 @@ style="margin-top:30px;margin-left:30px;"
         </button>
       </div>
       <div class="modal-body">
-        <form>
+       
+      
+      
+      <form action="php/createProject.php" method="post">
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Title:</label>
+            <label for="recipient-name" class="col-form-label">Project ID: *</label>
             <input type="text" class="form-control" id="recipient-name" class="title" id="title"
-            placeholder="Please enter project title..."
+            placeholder="Please enter project id..."
+            name="project_id"
             >
-    
-       </form>
+
+
+            <label for="recipient-name" class="col-form-label">Title: *</label>
+            <input type="text" class="form-control"  class="title" id="title"
+            placeholder="Please enter project title..."
+            name="title_id"
+            >
+
+
+            <label for="recipient-name" class="col-form-label">Team ID: *</label>
+            <input type="text" class="form-control"  class="title" id="title"
+            placeholder="Please enter team id..."
+            name="team_id"
+            >
+
+            <label for="recipient-name" class="col-form-label">Task ID:</label>
+            <input type="text" class="form-control"  class="title" id="title"
+            name="task_id"
+            placeholder="Please enter task id..."
+            >
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <button type="button" 
+        class="btn btn-secondary" 
+        data-dismiss="modal">Close</button>
+        <input
+        type="submit" 
+        class="btn btn-primary"
+        value="Save"
+        />
       </div>
+
+      </form>
     </div>
   </div>
 </div>
@@ -161,5 +234,9 @@ style="margin-top:30px;margin-left:30px;"
 
 
 
+
 </body>
 </html>
+
+
+

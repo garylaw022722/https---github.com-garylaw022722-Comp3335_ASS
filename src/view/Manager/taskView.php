@@ -87,35 +87,46 @@ style="margin-top:30px;margin-left:30px;"
   
     </tr>
   </thead>
+  <?php
+include('../../php/db_connect.php');
+$sql = "SELECT * FROM Task";
+$result = $con->query($sql);
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    ?>
+
   <tbody>
     <tr >
+
+
+    <th style="padding-top:20px;">
+      <?php echo $row["task_id"]?>
+      </th> 
+
       <th style="padding-top:20px;">
-        1
-      </th>
+      <?php echo $row["project_id"]?>
+      </th> 
+
       <th style="padding-top:20px;">
-        1
+      <?php echo $row["assigner"]?>
       </th> 
       <th style="padding-top:20px;">
-      Harry
-      </th>
+      <?php echo $row["assignee"]?>
+      </th> 
       <th style="padding-top:20px;">
-     Andy
-      </th>
-    
+      <?php echo $row["details"]?>
+      </th> 
       <th style="padding-top:20px;">
-   Hello world
-      </th>
-
+      <?php echo $row["status"]?>
+      </th> 
       <th style="padding-top:20px;">
-  Open
-      </th>
+      <?php echo $row["start_Date"]?>
+      </th> 
       <th style="padding-top:20px;">
-  09/10/2022
-      </th>
-      <th style="padding-top:20px;">
-      09/12/2022
-      </th>
-
+      <?php echo $row["end_Date"]?>
+      </th> 
+<!--
       <th style="padding-top:20px;">
       
       <input type="button" 
@@ -123,11 +134,17 @@ style="margin-top:30px;margin-left:30px;"
       data-target="#editTaskModal"
       value="Edit" 
       class="btn btn-primary"/>
-
-      <button type="button" 
-      data-toggle="modal"  
-      data-target="#deleteTaskModal"
-      class="btn btn-danger">Delete</button>
+      </th>
+  -->
+      <th style="padding-top:20px;">
+      <form action="php/deleteTask.php" method="post" >
+      <input type="hidden" 
+      name="task_id"
+      value="<?php echo $row['task_id']?>" />
+      <input type="submit"
+      value="Delete"
+      class="btn btn-danger"/>
+  </form>
         
       </th>
 </tr>
@@ -136,6 +153,15 @@ style="margin-top:30px;margin-left:30px;"
 
 
   </tbody>
+  <?php
+
+
+  }
+} else {
+  echo "0 results";
+}
+
+?>
 </table>
 </div>
 </div>
@@ -157,44 +183,49 @@ style="margin-top:30px;margin-left:30px;"
       </div>
       <div class="modal-body">
 
-      <form>
+      <form action="php/createTask.php" method="post" >
 	
-    <div style="margin-top:20px;">
-       Task ID: <input type="text"  class="form-control"/>
-</div>
+
 <div style="margin-top:20px;">
-       Project ID: <input type="text"   class="form-control"/>
+       Project ID: * <input type="text"  
+       name="project_id"
+       class="form-control"/>
 </div>
 
 <div style="margin-top:20px;">
-       Assigner: <input type="text"  class="form-control"/>
+       Assigner: <input type="text"  
+       name="assigner"
+       class="form-control"/>
 </div>
 
 <div style="margin-top:20px;">
-       Assignee: <input type="text"  class="form-control"/>
+       Assignee: <input type="text"  
+       name="assignee"
+       class="form-control"/>
 </div>
 
 <div style="margin-top:20px;">
-       Details: <input type="text"  class="form-control"/>
-</div>
-<div style="margin-top:20px;">
-       Status: <input type="text" class="form-control"/>
+       Details: * <input type="text" 
+       name="details"
+       class="form-control"/>
 </div>
 
 <div style="margin-top:20px;">
-       Start Date: <input type="date" class="form-control"/>
+       End Date: <input type="date"
+       name="end_date"
+       class="form-control"/>
 </div>
-<div style="margin-top:20px;">
-       End Date: <input type="date"  class="form-control"/>
-</div>
-</form>
-
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>   
+        <input type="submit" 
+        value="Submit"
+        class="btn btn-primary"/>
+
       </div>
+
+      </form>
     </div>
   </div>
 </div>

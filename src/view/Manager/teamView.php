@@ -82,19 +82,30 @@ style="margin-top:30px;margin-left:30px;"
   
     </tr>
   </thead>
+
+
+
+  <?php
+include('../../php/db_connect.php');
+$sql = "SELECT * FROM Team";
+$result = $con->query($sql);
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    ?>
   <tbody>
-    <tr >
+<tr >
       <th style="padding-top:20px;">
-        1
+       <?php echo $row['team_id']?>
       </th>
       <th style="padding-top:20px;">
-        1
+      <?php echo $row['user_id']?>
       </th> 
     
       <th style="padding-top:20px;">
-     1
+      <?php echo $row['project_id']?>
       </th>
-    
+    <!--
       <th style="padding-top:20px;">
       
       <input type="button" 
@@ -102,16 +113,39 @@ style="margin-top:30px;margin-left:30px;"
       data-target="#editTeamModal"
       value="Edit" 
       class="btn btn-primary"/>
+      </th>
+
+  -->
 
 
-      <button type="button" 
-      data-toggle="modal"  
-      data-target="#deleteTeamModal"
-      class="btn btn-danger">Delete</button>
+
+      <th style="padding-top:20px;">
+      <form action="php/deleteTeam.php" method="post" >
+      <input type="hidden" 
+      name="team_id"
+      value="<?php echo $row['team_id']?>" />
+      <input type="submit"
+      value="Delete"
+      class="btn btn-danger"/>
+  </form>
         
       </th>
 </tr>
   </tbody>
+
+
+  <?php
+
+
+}
+} else {
+echo "0 results";
+}
+
+?>
+
+
+
 </table>
 
 
@@ -132,26 +166,41 @@ style="margin-top:30px;margin-left:30px;"
         </button>
       </div>
       <div class="modal-body">
-        <form>
+
+
+
+        <form action="php/createTeam.php" method="post">
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Project ID:</label>
+            <label for="recipient-name" class="col-form-label">Team ID:</label>
             <input type="text" class="form-control" id="recipient-name" class="title" id="title"
-            placeholder="Please enter project id..."
+            placeholder="Please enter team id..."
+            name="team_id"
             >
+
             <label for="recipient-name" class="col-form-label">User ID:</label>
             <input type="text" class="form-control" id="recipient-name" class="title" id="title"
+            name="user_id"
             placeholder="Please enter user id..."
             >
 
 
+            <label for="recipient-name" class="col-form-label">Project ID:</label>
+            <input type="text" class="form-control" id="recipient-name" class="title" id="title"
+            name="project_id"
+            placeholder="Please enter project id..."
+            >  
+     
 
-    
-       </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <input 
+        type="submit"
+        class="btn btn-primary"
+        value="Submit"
+        />
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -167,3 +216,5 @@ style="margin-top:30px;margin-left:30px;"
 
 </body>
 </html>
+
+
