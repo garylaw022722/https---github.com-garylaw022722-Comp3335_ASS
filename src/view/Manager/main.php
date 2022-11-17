@@ -1,6 +1,5 @@
 <?php
 session_start();
-echo  $_SESSION["tappedID"];
 ?>
 <html lang="en">
   <head>
@@ -269,9 +268,6 @@ echo  $_SESSION["tappedID"];
 		
 		}
 
-
-
-
 	}else {
 ?>
  <main class="mdl-layout__content mdl-color--grey-100">
@@ -298,33 +294,22 @@ echo  $_SESSION["tappedID"];
 
 </script>
 
-
- 
-<!-- Start Edit Project  -->
-<div class="modal fade" id="editProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Project</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-	<form>
+<form> 
 	 <div style="margin-top:20px;">
-		Project ID: <input type="text" value="22" disabled="disabled" />
+		Project ID:
+     <input type="text" value="" disabled="disabled" 
+     />
 </div>
 <div style="margin-top:20px;">
-		Project Title: <input type="text" value="Java Code" class="form-control"/>
-</div>
-
-<div style="margin-top:20px;">
-		Team ID: <input type="text" value="1" disabled="disabled" class="form-control"/>
+		Project Title: <input type="text" value="" class="form-control"/>
 </div>
 
 <div style="margin-top:20px;">
-		Task ID: <input type="text" value="1" disabled="disabled" class="form-control"/>
+		Team ID: <input type="text" value="" disabled="disabled" class="form-control"/>
+</div>
+
+<div style="margin-top:20px;">
+		Task ID: <input type="text" value="" disabled="disabled" class="form-control"/>
 </div>
 
       </div>
@@ -335,35 +320,12 @@ echo  $_SESSION["tappedID"];
       </div>
     </div>
   </div>
+
 </div>
 <!-- End Edit Project  -->
 
 
 
-<!-- Start delete Project  -->
-<div class="modal" tabindex="-1" role="dialog" id="deleteProjectModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Delete Project</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-	  <form>
-        <p>Are you sure to delete this project?</p>
-</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- End delete Project  -->
 
 
 
@@ -425,30 +387,7 @@ echo  $_SESSION["tappedID"];
 
 
 
-<!-- Start delete Task  -->
-<div class="modal" tabindex="-1" role="dialog" id="deleteTaskModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Delete Task</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-	  <form>
-        <p>Are you sure to delete this task?</p>
-</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- End delete Task  -->
 
 
 <!-- Start Edit Team  -->
@@ -462,7 +401,9 @@ echo  $_SESSION["tappedID"];
         </button>
       </div>
       <div class="modal-body">
-	  <form>
+	  
+    
+      <form>
 	
 	 <div style="margin-top:20px;">
 		Team ID: <input type="text" value="1" disabled="disabled" class="form-control"/>
@@ -479,6 +420,7 @@ echo  $_SESSION["tappedID"];
 
 </form>
 
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -491,27 +433,14 @@ echo  $_SESSION["tappedID"];
 
 
 
-<!-- Start delete Task  -->
-<div class="modal" tabindex="-1" role="dialog" id="deleteTeamModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Delete Team</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-	  <form>
-        <p>Are you sure to delete this team?</p>
-</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- End delete Task  -->
+
+
+<!--paste-->
+<?php
+	if(isset($_GET['msg'])){
+		$message = $_GET['msg'];
+		echo "<script>alert('$message');</script>";
+		echo "<script>window.history.pushState({}, document.title, '/' + '/main.php');</script>";
+	}
+	?>

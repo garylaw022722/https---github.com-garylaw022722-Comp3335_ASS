@@ -13,7 +13,7 @@ if(isset($_POST["username"], $_POST["password"])){
             $rc1 = mysqli_fetch_assoc($rs1);
            
            
-            if ($rc1["acType"] == "admin"){//IT admin
+            if ($rc1["acType"] == "Admin"){//IT admin
                 while($rc = mysqli_fetch_assoc($rs)) {
                     if($rc['username'] = $username && $rc['password'] == $password){
                         session_start();
@@ -25,7 +25,7 @@ if(isset($_POST["username"], $_POST["password"])){
                         header( "Location:../index.php?msg=".urlencode("Wrong Username and password"));
                     }
                 }
-            }else if ($rc1["acType"] == "HRStaff"){ //HR Staff
+            }else if ($rc1["acType"] == "HR_Dept_Staff"){ //HR Staff
                 while($rc = mysqli_fetch_assoc($rs)) {
                     if($rc['username'] = $username && $rc['password'] == $password){
                         session_start();
@@ -38,7 +38,7 @@ if(isset($_POST["username"], $_POST["password"])){
                         header( "Location:../index.php?msg=".urlencode("Wrong Username and password"));
                     }
                 }
-            }else if ($rc1["acType"] == "ITStaff"){ //IT Staff
+            }else if ($rc1["acType"] == "IT_Dept_Staff"){ //IT Staff
                 while($rc = mysqli_fetch_assoc($rs)) {
                     if($rc['username'] = $username && $rc['password'] == $password){
                         session_start();
@@ -51,7 +51,7 @@ if(isset($_POST["username"], $_POST["password"])){
                         header( "Location:../index.php?msg=".urlencode("Wrong Username and password"));
                     }
                 }
-            }else if ($rc1["acType"] == "Manager"){ //manager account
+            }else if ($rc1["acType"] == "IT_Direct_Manager"){ //manager account
                 while($rc = mysqli_fetch_assoc($rs)) {
                     if($rc['username'] = $username && $rc['password'] == $password){
                         session_start();
@@ -64,7 +64,7 @@ if(isset($_POST["username"], $_POST["password"])){
                         header( "Location:../index.php?msg=".urlencode("Wrong Username and password"));
                     }
                 }
-            }else if ($rc1["acType"] == "SalesStaff"){ //sales staff
+            }else if ($rc1["acType"] == "Sales_Dept_Staff"){ //sales staff
                 while($rc = mysqli_fetch_assoc($rs)) {
                     if($rc['username'] = $username && $rc['password'] == $password){
                         session_start();
