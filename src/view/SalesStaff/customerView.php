@@ -1,3 +1,7 @@
+<?php
+require_once "../../php/db_connect.php";
+?>
+
 <html>
   <head>
   <meta charset="utf-8">
@@ -63,10 +67,80 @@
 background-color:red;
 }
 
-
+.black_overlay {
+  display: none;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1001;
+  -moz-opacity: 0.8;
+  opacity: .80;
+  filter: alpha(opacity=80);
+}
+.white_content {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  padding: 16px;
+  border: 16px solid orange;
+  background-color: white;
+  z-index: 1002;
+  overflow: auto;
+}
 </style>
 
 <body >
+
+<div id="light" class="white_content">This is the lightbox content. <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a>
+
+ <div>
+
+ <div class="form-group">
+ <form action="php/updateCustomer.php" method="post">
+
+            <label for="recipient-name" class="col-form-label">email: </label>
+            <p   id="email" class="form-control"></p>
+
+            <label for="recipient-name" class="col-form-label">CompanyName: </label>
+            <input type="text" class="form-control" id="recipient-name" class="CompanyName" id="CompanyName"
+            placeholder="Please enter Company Name"
+            name="CompanyName"
+            >
+
+            <label for="recipient-name" class="col-form-label">tel: </label>
+            <input type="text" class="form-control" id="recipient-name" class="tel" id="tel"
+            placeholder="Please enter telephone number"
+            name="tel"
+            >
+
+            >
+<br/>
+
+<input type="submit"
+
+            value="Save Change"
+            type="button" 
+            class="btn btn-primary"/>
+</form>
+
+
+</div>
+
+
+
+</div>
+</div>
+  <div id="fade" class="black_overlay">
+  </div>
+
+
+  <div id="fade" class="black_overlay"></div>
 
 <input type="button" value="New Customer"  id="createCustomerButton"
 class="btn btn-primary" data-toggle="modal"  data-target="#createCustomerModal"
@@ -83,25 +157,51 @@ style="margin-top:30px;margin-left:30px;"
   
     </tr>
   </thead>
-  <tbody>
-    <tr >
-    <th style="padding-top:20px;">
-      1
+<?php
+include('../../php/db_connect.php');
+$sql = "SELECT * FROM Customer";
+$result = $con->query($sql);
 
-    </th>
-      <th style="padding-top:20px;">1</th>
-      <th style="padding-top:20px;">1</th>
+if ($result->num_rows > 0) 
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    ?>
+
+<tbody>
+    <tr >
       <th style="padding-top:20px;">
-      
-      <input type="button" 
-      data-toggle="modal"  
-      data-target="#editCustomerModal"
-      value="Edit" 
-      class="btn btn-primary"/>
+      <?php echo $row["email"]?>
+      </th>
+      <th style="padding-top:20px;">
+      <?php echo $row["CompanyName"]?>
+      </th>
+      <th style="padding-top:20px;">
+      <?php echo $row["tel"]?>
+      </th>
+
+
+
+      <th style="padding-top:20px;">
+      <p>
+      <a href="javascript:void(0)" 
+      onclick="document.getElementById('light').style.display='block';
+      document.getElementById('email').innerHTML ='<h1><input type= text value= <?php echo $row['email']?> name= email </h1>';
+      document.getElementById('fade').style.display='block';
+      ">
+      Edit 
+      </a>
+      </p>
         
       </th>
 </tr>
   </tbody>
+
+<?php
+}else {
+echo "0 results";
+}
+?>
+
 </table>
 
 
@@ -110,6 +210,10 @@ style="margin-top:30px;margin-left:30px;"
 </div>
 </div>
 </div>
+
+<!--end new project-->
+
+
 
         <!--Form Create project Record-->
        <div class="modal fade" id="createCustomerModal" tabindex="-1" role="dialog" 
@@ -123,28 +227,33 @@ style="margin-top:30px;margin-left:30px;"
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="php/insertCustomer.php" method="post">
           <div class="form-group">
         
           <label for="recipient-name" class="col-form-label">Email:</label>
-            <input type="text" class="form-control" id="recipient-name" class="title" 
+            <input type="text" class="form-control" id="recipient-name" class="title" name='email'
             >
 
             <label for="recipient-name" class="col-form-label">Company Name:</label>
-            <input type="text" class="form-control" id="recipient-name" class="title" 
+            <input type="text" class="form-control" id="recipient-name" class="title" name='CompanyName'
           
             >
 
             <label for="recipient-name" class="col-form-label">Tel:</label>
-            <input type="text" class="form-control" id="recipient-name" class="title" 
+            <input type="text" class="form-control" id="recipient-name" class="title" name='tel'
           
             >
-       </form>
+       
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <input
+        type="submit" 
+        class="btn btn-primary"
+        value="Saves"
+        />
       </div>
+      </form>
     </div>
   </div>
 </div>
