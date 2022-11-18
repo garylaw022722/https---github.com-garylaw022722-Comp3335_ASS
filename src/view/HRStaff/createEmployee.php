@@ -4,6 +4,7 @@ session_start();
 include('../../php/db_Connection.php');
 
 $uuid =  $_SESSION["id"];
+
 if (isset(
     $_POST["user_id"],
     $_POST["Dept_id"],
