@@ -2,7 +2,6 @@
 include('../../../php/db_Connection.php');
 session_start();
 $uuid =  $_SESSION["id"];
-
 if(isset(
     $_POST['project_id'],
     $_POST['title_id'],$_POST['task_id'],$_POST['team_id'])){
@@ -15,10 +14,8 @@ if(isset(
     $task_id = $_POST['task_id'];
     $team_id = $_POST['team_id'];
     $preState->execute();
-   
-   
-   
-    if($query ==true)
+
+    if($preState ==true)
     {
        
       //echo "yes";

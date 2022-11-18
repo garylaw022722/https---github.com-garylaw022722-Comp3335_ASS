@@ -16,8 +16,6 @@ $preState->bind_param("s",$user_id);
 $preState->execute();
 $result =$preState->get_result();
 
-
-
 $isSuccess_Authenticated =false;
 if(mysqli_num_rows($result)==0){    
     echo "<h1>Login Fail</h1> try it again on <a href='../index.php'>index pages </a>";
