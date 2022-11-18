@@ -2,7 +2,8 @@
 use comp3335;
 create Role if not exists 'HR_Dept_Staff';
 Grant select,update,insert  on comp3335.Employee to 'HR_Dept_Staff';
-
+Grant select on comp3335.Employee to 'HR_Dept_Staff';
+Grant select on comp3335.Department to 'HR_Dept_Staff';
 
 #IT department
 

@@ -95,10 +95,10 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
   .white_content {
     display: none;
     position: absolute;
-    top: 25%;
+    top: 2%;
     left: 25%;
     width: 50%;
-    height: 50%;
+    height: 96%;
     padding: 16px;
     border: 16px solid orange;
     background-color: white;
@@ -114,28 +114,40 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
     <div>
 
       <div class="form-group">
-        <form action="php/editProject.php" method="post">
-          <label for="recipient-name" class="col-form-label">Project ID: </label>
-          <p type="text" id="project_id"></p>
+        <form action="editEmployee.php" method="post">
+          <label for="recipient-name" class="col-form-label">User ID: </label>
+          <p type="text" id="user_id"></p>
 
+          <label for="Dept_id" class="col-form-label">Department ID:</label>
+          <input type="value" class="form-control" name="Dept_id" id="Dept_id" class="title" placeholder="Please enter department ID...">
 
-          <label for="recipient-name" class="col-form-label">Title: </label>
-          <input type="text" class="form-control" id="recipient-name" class="title" id="title" placeholder="Please enter title..." name="title">
+          <label for="firstName" class="col-form-label">First Name:</label>
+          <input type="text" class="form-control" name="firstName" id="firstName" class="title" placeholder="Please enter the first name...">
 
-          <label for="recipient-name" class="col-form-label">Team ID: </label>
-          <input type="text" class="form-control" id="recipient-name" class="title" id="title" placeholder="Please enter team id..." name="team_id">
+          <label for="lastName" class="col-form-label">Last Name:</label>
+          <input type="text" class="form-control" name="lastName" id="lastName" class="title" placeholder="Please enter the last name...">
 
-          <label for="recipient-name" class="col-form-label">Task ID: </label>
-          <input type="text" class="form-control" id="recipient-name" class="title" id="title" placeholder="Please enter task id..." name="task_id">
+          <label for="BOD" class="col-form-label">Birth of Date:</label>
+          <input type="date" class="form-control" name="BOD" id="BOD" class="title" placeholder="Please enter the birth of date...">
+
+          <label for="salary" class="col-form-label">Salary:</label>
+          <input type="value" class="form-control" name="salary" id="salary" class="title" placeholder="Please enter the salary...">
+
+          <label for="gender" class="col-form-label">gender:</label>
+          <input type="text" class="form-control" name="gender" id="gender" class="title" placeholder="Please enter the gender...">
+
+          <label for="address" class="col-form-label">Address:</label>
+          <input type="text" class="form-control" name="address" id="address" class="title" placeholder="Please enter the address...">
+
+          <label for="ID_Card_No" class="col-form-label">HKID:</label>
+          <input type="text" class="form-control" name="ID_Card_No" id="ID_Card_No" class="title" placeholder="Please enter the HKID number...">
+
+          <label for="tel" class="col-form-label">Tel:</label>
+          <input type="text" class="form-control" name="tel" id="tel" class="title" placeholder="Please enter the contact number...">
           <br />
           <input type="submit" value="Save Change" type="button" class="btn btn-primary" />
         </form>
-
-
       </div>
-
-
-
     </div>
   </div>
   <div id="fade" class="black_overlay">
@@ -148,7 +160,8 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
     <thead>
       <tr>
         <th>User ID</th>
-        <th>Dep ID</th>
+        <th>Dpt. ID</th>
+        <th>Department Name</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>BOD</th>
@@ -162,7 +175,8 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
     </thead>
     <tbody>
       <?php
-      $sql = "SELECT * FROM comp3335.Employee;";
+      $sql = "SELECT comp3335.Employee.*, comp3335.Department.deptName FROM comp3335.Employee
+        INNER JOIN comp3335.Department on comp3335.Employee.Dept_id=comp3335.Department.Dept_id;";
       $result = $con->query($sql);
 
       if ($result->num_rows > 0) {
@@ -170,6 +184,7 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
         while ($row = $result->fetch_assoc()) {
           echo "<tr><th style='padding-top:20px;'>" . $row["user_id"] . "</th>
           <th style='padding-top:20px;'>" . $row["Dept_id"] . "</th>
+          <th style='padding-top:20px;'>" . $row["deptName"] . "</th>
           <th style='padding-top:20px;'>" . $row["firstName"] . "</th>
           <th style='padding-top:20px;'>" . $row["lastName"] . "</th>
           <th style='padding-top:20px;'>" . $row["BOD"] . "</th>
@@ -182,9 +197,8 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
           <th style='padding-top:20px;'>
             <p>
               <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';
-                document.getElementById('project_id').innerHTML ='<h1><input type= text value= <?php echo $row['user_id'] ?> name= project_id </h1>';
-                document.getElementById('fade').style.display='block';
-                ">
+                document.getElementById('user_id').innerHTML ='<h1><input type= text value= <?php echo $row['user_id'] ?> name= user_id </h1>';
+                document.getElementById('fade').style.display='block';">
                 Edit
               </a>
             </p>
@@ -199,25 +213,7 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
       }
       ?>
 
-
-      <!--
-      <tr>
-        <th style="padding-top:20px;">1</th>
-        <th style="padding-top:20px;">1</th>
-        <th style="padding-top:20px;">Hi</th>
-        <th style="padding-top:20px;">Hi</th>
-        <th style="padding-top:20px;">02/03/2022</th>
-        <th style="padding-top:20px;">2000</th>
-        <th style="padding-top:20px;">F</th>
-        <th style="padding-top:20px;">Hello</th>
-        <th style="padding-top:20px;">R234890(4)</th>
-        <th style="padding-top:20px;">
-          <input type="button" data-toggle="modal" data-target="#editEmpolyeeModal" value="Edit" class="btn btn-primary" />
-        </th>
-      </tr>
-    -->
       <!--end of select employee-->
-
 
       </div>
       </div>

@@ -1,19 +1,25 @@
 <?php
-include('../../../php/db_connect.php');
+include('../../../php/db_Connection.php');
+session_start();
+$uuid =  $_SESSION["id"];
 if(isset(
     $_POST['team_id'],
     $_POST['user_id'],$_POST['project_id'])){
 
-        $team_id = $_POST['team_id'];
+        $conn = getConnection(json_decode($_SESSION[$uuid])); 
+        //htmlxxx
+       $sql = "UPDATE Team 
+        SET user_id = ?,
+        project_id = ?
+        WHERE team_id= ?;";
+         $preState =$conn->prepare($sql);
+        $preState->bind_param("isi",$user_id,$project_id,$team_id);
         $user_id = $_POST['user_id'];
         $project_id = $_POST['project_id'];
-    
-        $sql = "UPDATE Team 
-        SET user_id = '$user_id',
-        project_id = '$project_id'
-        WHERE team_id='$team_id'";
+        $team_id = $_POST['team_id'];
+        $preState->execute();
 
-    if ($con->query($sql) === TRUE) {
+    if ($preState == TRUE) {
         //success
         //go to main
         header("Location:../main.php");
