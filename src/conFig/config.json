@@ -1,6 +1,6 @@
 {
-    "user":"Hello",
-    "pwd":"abc",
+    "user":"Alice123",
+    "pwd":"123",
     "host":"mysql_db",
     "database":"comp3335"
 }

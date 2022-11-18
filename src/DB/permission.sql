@@ -75,8 +75,10 @@ Grant select,insert,update on comp3335.Customer to 'Sales_Dept_Staff';
 
 
 
-create user 'Hello'@'%' identified by "abc";
-grant "Admin" to 'Hello'@'%' ;
-set default role  "Admin" to 'Hello'@'%' ;
+INSERT INTO Account (user_id, password, salt, create_on, updated_on, created_By, acType, internal_uid) VALUES
+('Alice123', 'fa14fe2c14aee437ac0186be0a2ce3b9a31f9ca93d94c2493d2d94f1223f493e', '85ka1/VUq1RluO98AdG3Yw==', '2022-11-18 14:21:27', '2022-11-18 14:21:27', 'HXA', 'Admin', 'Alice123@%');
 
+create user 'Alice123'@'%'  identified by '123';
+grant 'Admin' to 'Alice123'@'%';
+set default role 'Admin' to 'Alice123'@'%';
 
