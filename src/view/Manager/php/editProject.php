@@ -2,9 +2,9 @@
 include('../../../php/db_connect.php');
 if(isset(
     $_POST['project_id'],
-    $_POST['title_id'],$_POST['task_id'],$_POST['team_id'])){
+    $_POST['title'],$_POST['task_id'],$_POST['team_id'])){
         $project_id = $_POST['project_id'];
-        $title_id = $_POST['title_id'];
+        $title_id = $_POST['title'];
         $task_id = $_POST['task_id'];
         $team_id = $_POST['team_id'];
 
