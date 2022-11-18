@@ -1,18 +1,23 @@
 <?php
-include('../../../php/db_connect.php');
+include('../../../php/db_Connection.php');
+session_start();
+$uuid =  $_SESSION["id"];
+
 if(isset(
     $_POST['project_id'],
     $_POST['title_id'],$_POST['task_id'],$_POST['team_id'])){
-    $project_id = $_POST['project_id'];
+     $conn = getConnection(json_decode($_SESSION[$uuid])); 
+     $sql = "INSERT INTO Project(project_id,title,team_id,task_id) values (?,?,?,?)";
+     $preState =$conn->prepare($sql);
+     $preState->bind_param("ssss",$project_id,$title_id, $team_id, $task_id);
+     $project_id = $_POST['project_id'];
     $title_id = $_POST['title_id'];
     $task_id = $_POST['task_id'];
     $team_id = $_POST['team_id'];
-
-    $sql = "INSERT INTO Project(project_id,title,team_id,task_id)
-     value ('$project_id','$title_id', '$team_id', '$task_id')";
-     
-    $query= mysqli_query($con,$sql);
-    $lastId = mysqli_insert_id($con);
+    $preState->execute();
+   
+   
+   
     if($query ==true)
     {
        
