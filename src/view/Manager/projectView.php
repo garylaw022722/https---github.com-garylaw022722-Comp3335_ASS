@@ -140,8 +140,6 @@ background-color:red;
   <div id="fade" class="black_overlay">
   </div>
 
-
-  <div id="fade" class="black_overlay"></div>
 <input type="button" value="Create Project"  id="newProjectButton"
 class="btn btn-primary" data-toggle="modal"  data-target="#exampleModal"
 style="margin-top:30px;margin-left:30px;"

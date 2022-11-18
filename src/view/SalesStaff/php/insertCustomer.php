@@ -19,7 +19,7 @@ if(isset(
         $CompanyName = $_POST['CompanyName'];
         $tel = $_POST['tel'];
         $preState->execute();
-    if($preState ==true)
+    if($preState == true)
     {
 
       
