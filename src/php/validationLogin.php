@@ -49,7 +49,8 @@ if ($isSuccess_Authenticated){
         "database" => $config_Data->database,
         "role"=>  $role
     );
-        session_start();    
+    
+    session_start();    
     $hashed_uuid =hash("sha256",uniqid());
 
     $_SESSION[$hashed_uuid]=json_encode($sessionData);

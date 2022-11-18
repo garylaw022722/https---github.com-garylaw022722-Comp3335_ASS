@@ -1,4 +1,5 @@
 <?php
+include("../../php/db_Connection.php");
 $roleMap = array(
   "am" => "Admin",
   "IDM" => "IT_Direct_Manager",
@@ -7,32 +8,23 @@ $roleMap = array(
   "SDS"  =>"Sales_Dept_Staff"
 );
 
-
-$request_data= json_decode(file_get_contents('php://input'),true);
-
-
-$config  = file_get_contents("../../conFig/sa.json");
-$privkey = openssl_pkey_get_private(file_get_contents('../../secure/server_SK.pem'));
-openssl_private_decrypt($config,$plaintext,$privkey); //,OPENSSL_NO_PADDING);
-$config_Data =json_decode($plaintext);
-
-
-$conn = new mysqli(
-  $config_Data->host,
-  $config_Data->user,
-  $config_Data->pwd,
-  $config_Data->database
-);
-
+// register form data
 $user_id = $_POST["userID"];
 $password = $_POST["pwd"];
 $acType = $roleMap[$_POST["userType"]];
 $internal_uid =  $user_id.'@%';
 
 
+session_start();
+$uuid =  $_SESSION["id"];
+$profile =json_decode($_SESSION[$uuid]);
+$conn = getConnection($profile);
+
+
 
 
 if ($_POST["action"]=="register"){
+    //get default admin account to obtain  Account table 
         $sql ="Select * from Account where user_id =?";
         $preState =$conn->prepare($sql);
         $preState->bind_param("s",$user_id);
@@ -49,8 +41,9 @@ if ($_POST["action"]=="register"){
             $salt =base64_encode($salt);
             $concat_String = $password.$salt;
             $password= hash("sha256", $concat_String);
-            echo $concat_String."<br>";
-            $createdBy ="skaksa@%";
+            $row = mysqli_fetch_assoc($result);
+
+            $createdBy =$profile->user;
             $sql ="INSERT INTO `Account`(`user_id`, `password`, `salt`,  `created_By`, `acType`, `internal_uid`) 
             VALUES (?,?,?,?,?,?)";
             
@@ -64,9 +57,9 @@ if ($_POST["action"]=="register"){
         
             $acType='IT_Direct_Manager" , "IT_Dept_Staff';
             }
-        
+  
             $preState->bind_param("sss",$acType,$user_id,$_POST["pwd"]);
             $preState->execute();
-            // echo  "<script>window.location.href='register.html'; </script>";
+            echo  "<script>window.location.href='register.html'; </script>";
         }
     }
