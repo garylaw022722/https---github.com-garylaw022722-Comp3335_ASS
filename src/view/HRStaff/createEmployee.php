@@ -31,13 +31,12 @@ if (isset(
     $tel = $_POST["tel"];
     
 
-    $sql = 'INSERT INTO comp3335.Employee(user_id,Dept_id,firstName,lastName,BOD,salary,gender,address,ID_Card_No,tel) values (?,?,?,?,?,?,?,?,?,?)';
-    $preState = $conn->prepare($sql);
-    $preState->bind_param("sisssissss", $userID, $Dept_id, $firstName, $lasbtName, $BOD, $salary, $gender, $address, $ID_Card_No, $tel);
-  
+    $sql = "INSERT INTO Employee(user_id,Dept_id,firstName,lastName,BOD,salary,gender,address,ID_Card_No,tel) values (?,?,?,?,?,?,?,?,?,?)";
 
-    $sql = "INSERT INTO comp3335.Employee 
-       VALUES ('$userID', '$Dept_id', '$firstName', '$lastName', '$BOD', '$salary', '$gender', '$address', '$ID_Card_No', '$tel')";
+    $preState = $conn->prepare($sql);
+
+    $preState->bind_param("sisssissss", $userID, $Dept_id, $firstName, $lastName, $BOD, $salary, $gender, $address, $ID_Card_No, $tel);
+    $result =$preState->execute();
 }
 
 ?>

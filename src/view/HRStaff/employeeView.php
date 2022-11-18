@@ -1,5 +1,9 @@
 <?php
-require_once("../../php/db_connect.php");
+require_once("../../php/db_Connection.php");
+
+$uuid =  $_SESSION["id"];
+$con =getConnection(json_decode($_SESSION[$uuid]));
+
 ?>
 <html>
 
