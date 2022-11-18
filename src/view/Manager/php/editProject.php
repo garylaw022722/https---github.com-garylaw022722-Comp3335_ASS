@@ -1,8 +1,21 @@
 <?php
-include('../../../php/db_connect.php');
+include('../../../php/db_Connection.php');
+session_start();
+$uuid =  $_SESSION["id"];
+
 if(isset(
     $_POST['project_id'],
     $_POST['title'],$_POST['task_id'],$_POST['team_id'])){
+       
+       
+        $conn = getConnection(json_decode($_SESSION[$uuid])); 
+        //htmlxxx
+        $sql = "DELETE FROM Team WHERE team_id= ? LIMIT 1";
+        $preState =$conn->prepare($sql);
+        $team_id = $_POST['team_id'];
+      $preState->bind_param("s",$team_id);
+      $preState->execute();
+      
         $project_id = $_POST['project_id'];
         $title_id = $_POST['title'];
         $task_id = $_POST['task_id'];

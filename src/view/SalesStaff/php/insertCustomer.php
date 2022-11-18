@@ -1,23 +1,25 @@
 <?php
-include_once('../../../php/db_connect.php');
+include('../../../php/db_Connection.php');
+session_start();
+$uuid =  $_SESSION["id"];
+
 if(isset(
     $_POST['email'],
     $_POST['CompanyName'],
     $_POST['tel']))
     
     {
-    $email = $_POST['email'];
-    $CompanyName = $_POST['CompanyName'];
-    $tel = $_POST['tel'];
 
-
-
-    $sql = "INSERT INTO Customer(email,CompanyName,tel)
-     VALUES ('$email', '$CompanyName', '$tel');";
-
-    $query= mysqli_query($con,$sql);
-    $lastId = mysqli_insert_id($con);
-    if($query ==true)
+        $conn = getConnection(json_decode($_SESSION[$uuid])); 
+        //htmlxxx
+        $sql = "INSERT INTO Customer(email,CompanyName,tel) values (?,?,?)";
+        $preState =$conn->prepare($sql);
+        $preState->bind_param("sss",$email,$CompanyName, $tel);
+        $email = $_POST['email'];
+        $CompanyName = $_POST['CompanyName'];
+        $tel = $_POST['tel'];
+        $preState->execute();
+    if($preState ==true)
     {
 
       
