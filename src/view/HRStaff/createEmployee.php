@@ -22,7 +22,7 @@ if (isset(
     $sql = 'INSERT INTO comp3335.Employee(user_id,Dept_id,firstName,lastName,BOD,salary,gender,address,ID_Card_No,tel) values (?,?,?,?,?,?,?,?,?,?)';
     $preState = $conn->prepare($sql);
     $preState->bind_param("sisssissss", $userID, $Dept_id, $firstName, $lastName, $BOD, $salary, $gender, $address, $ID_Card_No, $tel);
-  
+
     $userID = $_POST["user_id"];
     $Dept_id = $_POST["Dept_id"];
     $firstName = $_POST["firstName"];
@@ -33,10 +33,19 @@ if (isset(
     $address = $_POST["address"];
     $ID_Card_No = $_POST["ID_Card_No"];
     $tel = $_POST["tel"];
+
     $preState->execute();
 
-    $sql = "INSERT INTO comp3335.Employee 
-       VALUES ('$userID', '$Dept_id', '$firstName', '$lastName', '$BOD', '$salary', '$gender', '$address', '$ID_Card_No', '$tel')";
+    if ($preState == true) {
+
+        //echo "yes";
+        header("Location: main.php?msg=" . urlencode("Employee created successfully."));
+    } else {
+        //private key project id wrong
+        header("Location: main.php?msg=" . urlencode("Error Occured."));
+    }
+} else {
+    header("Location:../main.php?msg=" . urlencode("Missing Data"));
 }
 
 ?>
