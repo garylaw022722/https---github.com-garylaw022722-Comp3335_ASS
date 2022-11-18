@@ -57,9 +57,24 @@ if ($_POST["action"]=="register"){
         
             $acType='IT_Direct_Manager" , "IT_Dept_Staff';
             }
-  
+
+            $desetination_Path ="../../secure/".$user_id;
+            mkdir($desetination_Path);
             $preState->bind_param("sss",$acType,$user_id,$_POST["pwd"]);
             $preState->execute();
-            echo  "<script>window.location.href='register.html'; </script>";
+
+            //create private key and secret key with SSL
+            $keySpec = openssl_pkey_new([
+              'private_key_bits' => 2048,
+              'private_key_type' => OPENSSL_KEYTYPE_RSA,
+              "digest_alg" => "sha512"
+            ]);
+          
+          openssl_pkey_export_to_file($keySpec, $desetination_Path."/".$user_id."_SK.pem");
+          $privateKey_Pem = openssl_get_privatekey(file_get_contents($desetination_Path."/".$user_id."_SK.pem"));
+          $publicKey= openssl_pkey_get_details($privateKey_Pem); 
+          file_put_contents($desetination_Path."/".$user_id."_PK.pem", $publicKey['key']);
+
+          echo  "<script>window.location.href='register.html'; </script>";
         }
     }
