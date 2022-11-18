@@ -75,79 +75,67 @@ require_once("../../php/db_connect.php");
   }
 
   .black_overlay {
-  display: none;
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  z-index: 1001;
-  -moz-opacity: 0.8;
-  opacity: .80;
-  filter: alpha(opacity=80);
-}
-.white_content {
-  display: none;
-  position: absolute;
-  top: 25%;
-  left: 25%;
-  width: 50%;
-  height: 50%;
-  padding: 16px;
-  border: 16px solid orange;
-  background-color: white;
-  z-index: 1002;
-  overflow: auto;
-}
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1001;
+    -moz-opacity: 0.8;
+    opacity: .80;
+    filter: alpha(opacity=80);
+  }
 
+  .white_content {
+    display: none;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    padding: 16px;
+    border: 16px solid orange;
+    background-color: white;
+    z-index: 1002;
+    overflow: auto;
+  }
 </style>
 
 <body>
 
-<div id="light" class="white_content">This is the lightbox content. <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a>
-  
-  <div>
- 
-  <div class="form-group">
-  <form action="php/editProject.php" method="post">
-             <label for="recipient-name" class="col-form-label">Project ID: </label>
-             <p type="text" id="project_id"></p>
- 
- 
-             <label for="recipient-name" class="col-form-label">Title: </label>
-             <input type="text" class="form-control" id="recipient-name" class="title" id="title"
-             placeholder="Please enter title..."
-             name="title"
-             > 
- 
-             <label for="recipient-name" class="col-form-label">Team ID: </label>
-             <input type="text" class="form-control" id="recipient-name" class="title" id="title"
-             placeholder="Please enter team id..."
-             name="team_id"
-             >
- 
-             <label for="recipient-name" class="col-form-label">Task ID: </label>
-             <input type="text" class="form-control" id="recipient-name" class="title" id="title"
-             placeholder="Please enter task id..."
-             name="task_id"
-             >
- <br/>
-             <input type="submit"
-             value="Save Change"
-             type="button" 
-             class="btn btn-primary"/>
- </form>
- 
- 
- </div>
- 
- 
- 
- </div>
- </div>
-   <div id="fade" class="black_overlay">
-   </div>
+  <div id="light" class="white_content">This is the lightbox content. <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a>
+
+    <div>
+
+      <div class="form-group">
+        <form action="php/editProject.php" method="post">
+          <label for="recipient-name" class="col-form-label">Project ID: </label>
+          <p type="text" id="project_id"></p>
+
+
+          <label for="recipient-name" class="col-form-label">Title: </label>
+          <input type="text" class="form-control" id="recipient-name" class="title" id="title" placeholder="Please enter title..." name="title">
+
+          <label for="recipient-name" class="col-form-label">Team ID: </label>
+          <input type="text" class="form-control" id="recipient-name" class="title" id="title" placeholder="Please enter team id..." name="team_id">
+
+          <label for="recipient-name" class="col-form-label">Task ID: </label>
+          <input type="text" class="form-control" id="recipient-name" class="title" id="title" placeholder="Please enter task id..." name="task_id">
+          <br />
+          <input type="submit" value="Save Change" type="button" class="btn btn-primary" />
+        </form>
+
+
+      </div>
+
+
+
+    </div>
+  </div>
+  <div id="fade" class="black_overlay">
+  </div>
 
 
   <input type="button" value="Create Employee" id="createEmployeeButton" class="btn btn-primary" data-toggle="modal" data-target="#createEmployeeModal" style="margin-top:30px;margin-left:30px;" />
@@ -185,34 +173,29 @@ require_once("../../php/db_connect.php");
           <th style='padding-top:20px;'>" . $row["gender"] . "</th>
           <th style='padding-top:20px;'>" . $row["address"] . "</th>
           <th style='padding-top:20px;'>" . $row["ID_Card_No"] . "</th>
-          <th style='padding-top:20px;'>" . $row["tel"] . "</th>;
-          
+          <th style='padding-top:20px;'>" . $row["tel"] . "</th>";
+      ?>
           <th style='padding-top:20px;'>
-        
-        ?>
-        <p>
-        <a href="javascript:void(0)" 
-        onclick="document.getElementById('light').style.display='block';
-        document.getElementById('project_id').innerHTML ='<h1><input type= text value= <?php echo $row['project_id']?> name= project_id </h1>';
-        document.getElementById('fade').style.display='block';
-        ">
-       Edit 
-       </a>
-       </p>
-
-        <?php
-         
-          </th></tr>";
+            <p>
+              <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';
+                document.getElementById('project_id').innerHTML ='<h1><input type= text value= <?php echo $row['user_id'] ?> name= project_id </h1>';
+                document.getElementById('fade').style.display='block';
+                ">
+                Edit
+              </a>
+            </p>
+          </th>
+      <?php
+          echo "</tr>";
         }
         echo "</tbody></table>";
       } else {
         echo "</tbody></table>";
         echo "0 results";
-        
       }
       ?>
 
-    
+
       <!--
       <tr>
         <th style="padding-top:20px;">1</th>
