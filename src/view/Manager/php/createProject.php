@@ -34,5 +34,3 @@ if(isset(
 }else{
     header( "Location:../main.php?msg=".urlencode("Miss Data"));
 }
-
-?>
