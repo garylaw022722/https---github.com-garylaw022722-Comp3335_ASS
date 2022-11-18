@@ -17,6 +17,7 @@ $internal_uid =  $user_id.'@%';
 
 session_start();
 $uuid =  $_SESSION["id"];
+echo $_SESSION[$uuid];
 $profile =json_decode($_SESSION[$uuid]);
 $conn = getConnection($profile);
 
@@ -35,7 +36,7 @@ if ($_POST["action"]=="register"){
         if(mysqli_num_rows($result)==1){    
             echo "<h1 >Duplicated </h1>";
         }
-        else{ 
+        else{
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             $salt =openssl_random_pseudo_bytes(16, $cstrong);
             $salt =base64_encode($salt);
@@ -46,6 +47,8 @@ if ($_POST["action"]=="register"){
             $createdBy =$profile->user;
             $sql ="INSERT INTO `Account`(`user_id`, `password`, `salt`,  `created_By`, `acType`, `internal_uid`) 
             VALUES (?,?,?,?,?,?)";
+
+            
             
             $preState =$conn->prepare($sql);
             $preState->bind_param("ssssss",$user_id,$password,$salt,$createdBy ,$acType,$internal_uid);
@@ -75,6 +78,7 @@ if ($_POST["action"]=="register"){
           $publicKey= openssl_pkey_get_details($privateKey_Pem); 
           file_put_contents($desetination_Path."/".$user_id."_PK.pem", $publicKey['key']);
 
-          echo  "<script>window.location.href='register.html'; </script>";
+          // echo  "<script>window.location.href='register.html'; </script>";
+
         }
     }
