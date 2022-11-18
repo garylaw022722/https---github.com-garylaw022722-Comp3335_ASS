@@ -1,22 +1,24 @@
 <?php
-include('../../../php/db_connect.php');
+include('../../../php/db_Connection.php');
+session_start();
+$uuid =  $_SESSION["id"];
 if(isset(
     $_POST['project_id'],
     $_POST['assigner'],$_POST['assignee'],$_POST['details'],
     $_POST['end_date']
     )){
+      $conn = getConnection(json_decode($_SESSION[$uuid])); 
+      //htmlxxx
+      $sql = "INSERT INTO Task(project_id,assigner,assignee,details,end_Date) values (?,?,?,?,?)";
+      $preState =$conn->prepare($sql);
     $project_id = $_POST['project_id'];
     $assigner = $_POST['assigner'];
     $assignee = $_POST['assignee'];
     $details = $_POST['details'];
     $end_date = $_POST['end_date'];
-
-    $sql = "INSERT INTO Task(project_id,assigner,assignee,details,end_Date) 
-    value ('$project_id','$assigner', '$assignee', '$details','$end_date')";
-     
-    $query= mysqli_query($con,$sql);
-    $lastId = mysqli_insert_id($con);
-    if($query ==true)
+    $preState->bind_param("sssss",$project_id,$assigner, $assignee, $details,$end_date);
+    $preState->execute();
+    if($preState ==true)
     {
       //echo "yes";
       header("Location:../main.php");
