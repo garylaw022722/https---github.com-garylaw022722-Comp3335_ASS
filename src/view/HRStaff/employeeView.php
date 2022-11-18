@@ -175,7 +175,8 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
     </thead>
     <tbody>
       <?php
-      $sql = "SELECT * FROM comp3335.Employee;";
+      $sql = "SELECT comp3335.Employee.*, comp3335.Department.deptName FROM comp3335.Employee
+        INNER JOIN comp3335.Department on comp3335.Employee.Dept_id=comp3335.Department.Dept_id;";
       $result = $con->query($sql);
 
       if ($result->num_rows > 0) {
