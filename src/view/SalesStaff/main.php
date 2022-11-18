@@ -302,6 +302,8 @@ echo  $_SESSION["tappedID"];
 
 </script>
 
+
+
 <!-- Start Edit Customer  -->
 <div class="modal fade" id="editCustomerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabels" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -313,32 +315,37 @@ echo  $_SESSION["tappedID"];
         </button>
       </div>
       <div class="modal-body">
-	  <form>
+      <form action="php/updateCustomer.php" method="post">
 	
     <div class="form-group">
         
         <label for="recipient-name" class="col-form-label">Email:</label>
-          <input type="text" class="form-control" id="recipient-name" class="title" 
+          <input type="text" class="form-control" id="recipient-name" class="title" name='email'
           >
 
           <label for="recipient-name" class="col-form-label">Company Name:</label>
-          <input type="text" class="form-control" id="recipient-name" class="title" 
+          <input type="text" class="form-control" id="recipient-name" class="title" name='CompanyName'
         
           >
 
           <label for="recipient-name" class="col-form-label">Tel:</label>
-          <input type="text" class="form-control" id="recipient-name" class="title" 
+          <input type="text" class="form-control" id="recipient-name" class="title" name='tel'
         
           >
 
 
-</form>
+
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <input
+        type="submit" 
+        class="btn btn-primary"
+        value="Save"
+        />
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -346,7 +353,7 @@ echo  $_SESSION["tappedID"];
 
 
 
-<!-- Start Edit Team  -->
+<!-- Start Edit Product  -->
 <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabels" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -401,7 +408,8 @@ echo  $_SESSION["tappedID"];
     </div>
   </div>
 </div>
-<!-- End Edit Team  -->
+<!-- End Edit Product  -->
+
 
 <!-- Start Edit Order  -->
 <div class="modal fade" id="editOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -458,7 +466,6 @@ echo  $_SESSION["tappedID"];
   </div>
 </div>
 <!-- End Edit Order  -->
-
 
 
 
