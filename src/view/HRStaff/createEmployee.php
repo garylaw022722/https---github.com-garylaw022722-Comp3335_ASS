@@ -37,11 +37,8 @@ if (isset(
     $preState->execute();
 
     if ($preState == true) {
-
-        //echo "yes";
         header("Location: main.php?msg=" . urlencode("Employee created successfully."));
     } else {
-        //private key project id wrong
         header("Location: main.php?msg=" . urlencode("Error Occured."));
     }
 } else {
