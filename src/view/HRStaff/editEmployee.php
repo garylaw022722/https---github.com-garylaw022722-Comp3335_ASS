@@ -1,6 +1,4 @@
-<!-- HR Staff - employee edit --->
 <?php
-
 include('../../php/db_Connection.php');
 session_start();
 
@@ -18,12 +16,11 @@ if (isset(
     $_POST["ID_Card_No"],
     $_POST["tel"]
 )) {
-    // data from create employee form
     $conn = getConnection(json_decode($_SESSION[$uuid]));
-    $sql = 'INSERT INTO comp3335.Employee(user_id,Dept_id,firstName,lastName,BOD,salary,gender,address,ID_Card_No,tel) values (?,?,?,?,?,?,?,?,?,?)';
+    $sql = "UPDATE comp3335.Employee SET Dept_id=?, firstName=?, lastName=?, BOD=?, salary=?, gender=?, address=?, ID_Card_No=?, tel=? WHERE user_id=?;";
     $preState = $conn->prepare($sql);
-    $preState->bind_param("sisssissss", $userID, $Dept_id, $firstName, $lastName, $BOD, $salary, $gender, $address, $ID_Card_No, $tel);
-
+    $preState->bind_param("isssisssss", $Dept_id, $firstName, $lastName, $BOD, $salary, $gender, $address, $ID_Card_No, $tel, $userID);
+    
     $userID = $_POST["user_id"];
     $Dept_id = $_POST["Dept_id"];
     $firstName = $_POST["firstName"];
@@ -34,16 +31,14 @@ if (isset(
     $address = $_POST["address"];
     $ID_Card_No = $_POST["ID_Card_No"];
     $tel = $_POST["tel"];
-
+    
     $preState->execute();
-
+    
     if ($preState == true) {
-        header("Location: main.php?msg=" . urlencode("Employee created successfully."));
+        header("Location: main.php?msg=" . urlencode("Employee updated successfully."));
     } else {
         header("Location: main.php?msg=" . urlencode("Error Occured."));
     }
 } else {
-    header("Location:../main.php?msg=" . urlencode("Missing Data"));
+    header("Location: main.php?msg=" . urlencode("Missing Data"));
 }
-
-?>

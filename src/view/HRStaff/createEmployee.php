@@ -1,4 +1,3 @@
-<!-- HR Staff - employee create --->
 <?php
 
 include('../../php/db_Connection.php');
@@ -20,7 +19,7 @@ if (isset(
 )) {
     // data from create employee form
     $conn = getConnection(json_decode($_SESSION[$uuid]));
-    $sql = 'INSERT INTO comp3335.Employee(user_id,Dept_id,firstName,lastName,BOD,salary,gender,address,ID_Card_No,tel) values (?,?,?,?,?,?,?,?,?,?)';
+    $sql = "INSERT INTO comp3335.Employee(user_id,Dept_id,firstName,lastName,BOD,salary,gender,address,ID_Card_No,tel) values (?,?,?,?,?,?,?,?,?,?)";
     $preState = $conn->prepare($sql);
     $preState->bind_param("sisssissss", $userID, $Dept_id, $firstName, $lastName, $BOD, $salary, $gender, $address, $ID_Card_No, $tel);
 
@@ -43,7 +42,5 @@ if (isset(
         header("Location: main.php?msg=" . urlencode("Error Occured."));
     }
 } else {
-    header("Location:../main.php?msg=" . urlencode("Missing Data"));
+    header("Location: main.php?msg=" . urlencode("Missing Data"));
 }
-
-?>

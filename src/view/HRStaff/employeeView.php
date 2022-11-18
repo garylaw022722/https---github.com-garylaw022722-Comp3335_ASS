@@ -114,7 +114,7 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
     <div>
 
       <div class="form-group">
-        <form action="php/editEmployee.php" method="post">
+        <form action="editEmployee.php" method="post">
           <label for="recipient-name" class="col-form-label">User ID: </label>
           <p type="text" id="user_id"></p>
 
@@ -198,8 +198,7 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
             <p>
               <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';
                 document.getElementById('user_id').innerHTML ='<h1><input type= text value= <?php echo $row['user_id'] ?> name= user_id </h1>';
-                document.getElementById('fade').style.display='block';
-                ">
+                document.getElementById('fade').style.display='block';">
                 Edit
               </a>
             </p>
