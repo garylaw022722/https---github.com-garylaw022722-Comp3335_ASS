@@ -91,7 +91,7 @@ style="margin-top:30px;margin-left:30px;"
   <tbody>
     <tr >
     <th style="padding-top:20px;">
-      1
+      
 
     </th>
       <th style="padding-top:20px;">1</th>
@@ -104,7 +104,7 @@ style="margin-top:30px;margin-left:30px;"
       <th style="padding-top:20px;">R234890(4)</th>
     
       <th style="padding-top:20px;">
-      
+
       <input type="button" 
       data-toggle="modal"  
       data-target="#editEmpolyeeModal"
