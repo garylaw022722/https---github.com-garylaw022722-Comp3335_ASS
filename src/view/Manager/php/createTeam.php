@@ -1,20 +1,23 @@
 <?php
-include('../../../php/db_connect.php');
+include('../../../php/db_Connection.php');
+session_start();
+$uuid =  $_SESSION["id"];
 if(isset(
     $_POST['team_id'],
     $_POST['user_id'],$_POST['project_id']
     )){
-    $team_id = $_POST['team_id'];
-    $user_id = $_POST['user_id'];
-    $project_id = $_POST['project_id'];
 
+      $conn = getConnection(json_decode($_SESSION[$uuid])); 
+      //htmlxxx
+      $sql = "INSERT INTO Team(team_id,user_id,project_id) values (?,?,?)";
+      $preState =$conn->prepare($sql);
+      $team_id = $_POST['team_id'];
+      $user_id = $_POST['user_id'];
+      $project_id = $_POST['project_id'];
+    $preState->bind_param("sss",$team_id,$user_id, $project_id);
+    $preState->execute();
 
-    $sql = "INSERT INTO Team(team_id,user_id,project_id) 
-    value ('$team_id','$user_id', '$project_id')";
-     
-    $query= mysqli_query($con,$sql);
-    $lastId = mysqli_insert_id($con);
-    if($query ==true)
+    if($preState ==true)
     {
       //echo "yes";
       header("Location:../main.php");

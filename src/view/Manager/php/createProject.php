@@ -6,6 +6,7 @@ if(isset(
     $_POST['project_id'],
     $_POST['title_id'],$_POST['task_id'],$_POST['team_id'])){
      $conn = getConnection(json_decode($_SESSION[$uuid])); 
+     //htmlxxx
      $sql = "INSERT INTO Project(project_id,title,team_id,task_id) values (?,?,?,?)";
      $preState =$conn->prepare($sql);
      $preState->bind_param("ssss",$project_id,$title_id, $team_id, $task_id);
@@ -17,7 +18,7 @@ if(isset(
 
     if($preState ==true)
     {
-       
+  
       //echo "yes";
       header("Location:../main.php");
 
