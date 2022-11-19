@@ -10,7 +10,10 @@ create table Account(
     updated_on timestamp default CURRENT_TIMESTAMP,
     created_By varchar(20) not null,
     acType  varchar(40) not null,
-    internal_uid  varchar(40) not null
+    internal_uid  varchar(40) not null,
+    freeze VARCHAR(1)  DEFAULT 'F',
+    check(freeze  in ('F', 'T'))
+
 );
 
 Drop table if exists Employee;

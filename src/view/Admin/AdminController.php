@@ -31,15 +31,17 @@ if ($request_data["action"] == "getAC_data") {
     }
     
     if ($request_data["isRevokeAll"]){
-        $sql="Update Account set acType='N/A'  Where user_id =? ";
+        $sql="Update Account set  freeze ='T'  Where user_id =? ";
         $preState =$conn->prepare($sql);
         $preState->bind_param("s",$user_id);
         $preState->execute();     
         
+
         // procdure in describe in persimssion.sql
         $preState =$conn->prepare("call Disable_USR_Account(?)");
         $preState->bind_param("s",$user_id);
         $preState->execute();         
+
     }
 
 }

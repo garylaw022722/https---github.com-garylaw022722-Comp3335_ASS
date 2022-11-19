@@ -5,80 +5,96 @@ $user_password = $_POST["password"];
 
 $config  = file_get_contents("../conFig/sa.json");
 $privkey = openssl_pkey_get_private(file_get_contents('../secure/server_SK.pem'));
-openssl_private_decrypt($config, $plaintext, $privkey); //,OPENSSL_NO_PADDING);
+openssl_private_decrypt($config, $plaintext, $privkey);
 $config_Data = json_decode($plaintext);
+
+$Psudo_user = $config_Data->user;
+$Psudo_pwd = $config_Data->pwd;
+
+$config_Data->user = $config_Data->default;
+$config_Data->pwd = $config_Data->default_pwd;
+
 
 
 $conn = getConnection($config_Data);
-if ($conn =="AccessDeline" && $user_id== $config_Data->user) {
-    //***********************/ create super account if not found / *************************
-    $Psudo_user = $config_Data->user;
-    $Psudo_pwd = $config_Data->pwd;
 
-    $config_Data->user = $config_Data->default;
-    $config_Data->pwd = $config_Data->default_pwd;
-    $reconnect = getConnection($config_Data);
 
-    $sql = "Select salt , password ,acType,internal_uid from Account where user_id =?";
-    $preState = $reconnect->prepare($sql);
-    $preState->bind_param("s", $config_Data->user);
-    $preState->execute();
-    $result = $preState->get_result();
-    if (mysqli_num_rows($result) == 0) {
-        //insert record on Account table 
-        $internal_uid  =$Psudo_user."%@";
-        $salt = openssl_random_pseudo_bytes(16, $cstrong);
-        $salt = base64_encode($salt);
-        $concat_String = $Psudo_pwd. $salt;
-        $password = hash("sha256", $concat_String);
-        $row = mysqli_fetch_assoc($result);
 
-        $createdBy = $config_Data->user;
-        $sql = "INSERT INTO `Account`(`user_id`, `password`, `salt`,  `created_By`, `acType`, `internal_uid`) 
+
+
+
+
+
+//***********************/ create super account if not found / *************************
+$sql = "Select salt , password ,acType, internal_uid ,freeze from Account where user_id = ? ";
+$preState = $conn->prepare($sql);
+$preState->bind_param("s",$Psudo_user);
+$preState->execute();
+$result = $preState->get_result();
+
+if (mysqli_num_rows($result) == 0 && $Psudo_user == $user_id && $Psudo_pwd==$user_password) {
+    
+
+    //insert record on Account table 
+    $internal_uid  = $Psudo_user."%@";
+    $salt = openssl_random_pseudo_bytes(16, $cstrong);
+    $salt = base64_encode($salt);
+    $concat_String = $Psudo_pwd . $salt;
+    $password = hash("sha256", $concat_String);
+    $row = mysqli_fetch_assoc($result);
+
+    $createdBy = $config_Data->user;
+    $sql = "INSERT INTO `Account`(`user_id`, `password`, `salt`,  `created_By`, `acType`, `internal_uid`) 
             VALUES (?,?,?,?,?,?)";
 
-        $preState = $reconnect->prepare($sql);
-        $preState->bind_param("ssssss", $user_id, $password, $salt, $createdBy, $config_Data->Role, $internal_uid);
-        $preState->execute();
+    $preState = $conn->prepare($sql);
+    $preState->bind_param("ssssss", $user_id, $password, $salt, $createdBy, $config_Data->Role, $internal_uid);
+    $preState->execute();
 
 
-        //create DB Account 
-        $sql = "call createUser(?,?,?)";
-        $preState = $reconnect->prepare($sql);
-        $preState->bind_param("sss", $config_Data->Role, $Psudo_user, $Psudo_pwd);
-        $preState->execute();
+    //create DB Account 
+    $sql = "call createUser(?,?,?)";
+    $preState = $conn->prepare($sql);
+    $preState->bind_param("sss", $config_Data->Role, $Psudo_user, $Psudo_pwd);
+    $preState->execute();
 
-        // create KeyPairs
-        $keySpec = openssl_pkey_new([
-            'private_key_bits' => 2048,
-            'private_key_type' => OPENSSL_KEYTYPE_RSA,
-            "digest_alg" => "sha512"
-        ]);
+    // create KeyPairs
+    $keySpec = openssl_pkey_new([
+        'private_key_bits' => 2048,
+        'private_key_type' => OPENSSL_KEYTYPE_RSA,
+        "digest_alg" => "sha512"
+    ]);
 
-        $desetination_Path ="../secure/{$Psudo_user}";
-        openssl_pkey_export_to_file($keySpec, "{$desetination_Path}/{$Psudo_user}_SK.pem");
-        $privateKey_Pem = openssl_get_privatekey(file_get_contents("{$desetination_Path}/{$Psudo_user}_SK.pem"));
-        $publicKey = openssl_pkey_get_details($privateKey_Pem);
-        file_put_contents("{$desetination_Path}/{$Psudo_user}_SK.pem", $publicKey['key']);
-        
-        $conn = $reconnect; // as root to do authentication
-        
-        
 
+    $desetination_Path = "../secure/{$Psudo_user}";
+    if ( !is_dir( $desetination_Path ) ) {
+        mkdir($desetination_Path);
     }
+    openssl_pkey_export_to_file($keySpec, "{$desetination_Path}/{$Psudo_user}_SK.pem");
+    $privateKey_Pem = openssl_get_privatekey(file_get_contents("{$desetination_Path}/{$Psudo_user}_SK.pem"));
+    $publicKey = openssl_pkey_get_details($privateKey_Pem);
+    file_put_contents("{$desetination_Path}/{$Psudo_user}_SK.pem", $publicKey['key']);
 }
-$sql = "Select salt , password ,acType,internal_uid from Account where user_id =?";
+
+$sql = "Select salt ,freeze, password ,acType,internal_uid from Account where user_id =?";
 $preState = $conn->prepare($sql);
 $preState->bind_param("s", $user_id);
 $preState->execute();
 $result = $preState->get_result();
 
 $isSuccess_Authenticated = false;
+
 if (mysqli_num_rows($result) == 0) {
 
     echo "<h1>Login Fail</h1> try it again on <a href='../index.php'>index pages </a>";
 } else {
+   
+
     $data = mysqli_fetch_assoc($result);
+    if ($data["freeze"]=='T'){
+        echo "<h1> Acesss Deline </h1>";
+        exit();
+    }
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $concat_String = $user_password . $data["salt"];
 
@@ -137,5 +153,6 @@ if ($isSuccess_Authenticated) {
             $_SESSION["tappedID"] = "8";
             header("Location:../view/SalesStaff/main.php");
             break;
+        
     }
 }
