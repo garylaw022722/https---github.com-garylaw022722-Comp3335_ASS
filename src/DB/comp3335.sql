@@ -104,10 +104,7 @@ insert into Department(deptName) values("Sales Department");
 
  
  
-insert into Employee values("MSA1234585", 1,"Gary","Law" ,"2002-02-23",10000,"M","SHP","S1919388","1282828");
-insert into Employee values("Mandy2882", 1,"Mandy","Wong" ,"1902-02-23",10000,"M","SHP","Z1919388","1212828");
-insert into Employee values("jo324423", 1,"Jo","Ng" ,"1999-02-23",4000,"M","SHP","Y1155968","2525989");
-insert into Employee values("ko332256", 1,"Jacky","Chan" ,"1999-08-26",2000,"M","SHP","Y5566889","9090556");
+
 insert into Project (Project_id ,title,team_id) values(1,"City Mapper Apps",1);
 insert into Project (Project_id ,title,team_id) values(2,"Fan e-commerce",2);
 insert into Task (task_id, project_id, assigner, assignee, details) values(1, 1, "MSA1234585", "Mandy2882", "UI Design");
@@ -116,5 +113,4 @@ insert into Team values(1, "MSA1234585", 1);
 insert into Team values(2, "jo324423", 2);
 
 
-INSERT INTO Employee VALUES
-('Gary123', 1, 'sasakn', 'snasak', 'Vih07nW8vR2exNM68kuTsfSAf//RCDS0uSl7dLN7NHz6A/1g0QWDqIfB56cpqOH/j13J+hojVSyECLgtu+8jL61LabrDZuIftQhHfHK/PtMsZx01NhZeekZTI6eGzkIxnB3NIgb7nqaMcer7Iw56kxs93yEuDsYBcZsXp3e5bFKDzFYsVkYv82vwvEM43qFGNCOoPctethRFOQwd1M4n5yLZewY4JROzkqDUbVFtA/9jCm26+6K1E298TJkSzpbXH4GyCVLeAqVjBaq7/su6rFw8qYCqmw32tth76CBEWT4f971QvmI600y3YWFLWtqzCplBPrzf1A0ilPaUHWfzWg==', 'I22v3Z0lvqhJJlu8GiXddSaVY5a0iwB+TyUfsDmBLpM/Yut2J5ALuSy/KD14pusIgIhiL+bBwG+s4/FzSQdXcw21UvTFZA36eSRkemV+oMpmo+8m4SZ75gX72xrYOhy144AOFsMbS0gO3bWC/yDC7xgdyA4j2sdLqn32lqCEgk599Qdtd01n67umIkWorONWU03sAAnF5WGqfI99E1UY+LOlLx49ett9n19Th7DMZrjzH30hHSSxIsbtA0A3S8o6c0H3tAJUqyylckr/ccbLW/K0U9f3vLKyDZqjTPD+V+OKQSnHTbBVPvYUD17YKPJ2rz0KeS7aqpMkx/z9a3AisQ==', 'F', 'jLGBgoo89lRLKKXqWD1bixvL7dP2pXoSmncQuisjpb9oZdNkr48L+aBfEVh+OT2GXPxY6VupeFnqFOEjxh3UiGMASYJ6MJNgh0DgkuuCXRTYbn/vpW8Xfpzlh5FQ7VRjqeSV2gHXLU4+0FtnfsYTRZEPln/DQ9CBf+jqHX5P1c9GQYXjpO6mGZIbeaJSKZZxo9jlgEDcBOdvOss4e6nJSwbfg6YN/p2RJT0PBmVECH+5xr939zhdjKv9JGduDH8BdiLixWjsMyFRcV/j+ImK+x74jwkBbpGZUpmzp9Vu1pmwQGFI4x1r9uWJwicXortrtHLr8Ftl7n7Uj6fsc6BrTA==', '2h3LFSmZfEBb2gcEw0PqbDCdAPDuWyd8QeHsh/odsnYXqDeYwC2AUX6w80FoLhag2qf+JU8RhTMmUDoogPvegtmtCOfBGeA2QEDdYVexaXP8Nz9jB+7EUQdqkWaDFqNosboBijM3mATCNsNAUcTa8JycNLmlcuEMLeqTFTJ7a9Yd3++9Y3MRWP/JQv5rhzZ8U4ZDtmhJZxRYrMWfaZzT8MRp9kaiBem5MhQ2KlFfVixI8peyBpNgmn8WfuMZY1/lIprGNVElAosx6bk9J9JnAfuKT6Q+Mxf6dOWH9O51Lr0mt0wjMN69MxnrYiHOBApEhnSZQm2yE8UMQ1TUsjDdYQ==', 'dH3ozCEEFl76sLh4npfccrzeBiveEqfV/FLPiuYeswvoNcvdgNf6t/ilLjc9lrKQ4cAk/AKuqluLPvNnOd/m+iEE/HnoENtnzeVud2yplmW4Jktqj4qhesyhTHlklRQaqiC2+YOZIM+lzbYw3Nh+KCvZ6Tm8Rr3DGUPGNfQlCadoaEs+NvAuwerw6p8NLRcBy0ZehS9GznbP5Fxr85Eb0n3OYmOfHWJ91RuKYThmIla4RjBp8FJ6ejE5n6WHDWrqdIstRdYEu7NG6cWrm64wNe+lk+CKKRve9Enx3+DU09zAH0iWEdJ8BK0snMJsWWQIBzXByAXXd5iXCE5O3EALXQ==');
+    
