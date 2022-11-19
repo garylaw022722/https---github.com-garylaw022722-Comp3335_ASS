@@ -25,12 +25,17 @@ if (isset(
     $Dept_id = $_POST["Dept_id"];
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
-    $BOD = $_POST["BOD"];
-    $salary = $_POST["salary"];
     $gender = $_POST["gender"];
+    
+
+    
+    $salary = $_POST["salary"];
+    $BOD = $_POST["BOD"];
     $address = $_POST["address"];
     $ID_Card_No = $_POST["ID_Card_No"];
     $tel = $_POST["tel"];
+
+
     
     $preState->execute();
     

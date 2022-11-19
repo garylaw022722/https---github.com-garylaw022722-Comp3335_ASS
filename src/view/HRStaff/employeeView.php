@@ -2,7 +2,7 @@
 require_once("../../php/db_Connection.php");
 
 $uuid =  $_SESSION["id"];
-$con =getConnection(json_decode($_SESSION[$uuid]));
+$con = getConnection(json_decode($_SESSION[$uuid]));
 
 ?>
 <html>
@@ -160,7 +160,6 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
     <thead>
       <tr>
         <th>User ID</th>
-        <th>Dpt. ID</th>
         <th>Department Name</th>
         <th>First Name</th>
         <th>Last Name</th>
@@ -180,19 +179,25 @@ $con =getConnection(json_decode($_SESSION[$uuid]));
       $result = $con->query($sql);
 
       if ($result->num_rows > 0) {
+        include("protection.php");
+
+
         // output data of each row
+        $counter = 0;
         while ($row = $result->fetch_assoc()) {
-          echo "<tr><th style='padding-top:20px;'>" . $row["user_id"] . "</th>
-          <th style='padding-top:20px;'>" . $row["Dept_id"] . "</th>
+          $Skey_Path = "../../secure/{$row['user_id']}/{$row['user_id']}_SK.pem";
+          echo $Skey_Path;
+          $priKey = openssl_get_privatekey(file_get_contents($Skey_Path));
+          echo "<tr><th style='padding-top:20px;'>" . $row['user_id'] . "</th>
           <th style='padding-top:20px;'>" . $row["deptName"] . "</th>
           <th style='padding-top:20px;'>" . $row["firstName"] . "</th>
           <th style='padding-top:20px;'>" . $row["lastName"] . "</th>
-          <th style='padding-top:20px;'>" . $row["BOD"] . "</th>
-          <th style='padding-top:20px;'>" . $row["salary"] . "</th>
+          <th style='padding-top:20px;'>" . RSA_decryption($row["BOD"], $priKey) . "</th>
+          <th style='padding-top:20px;'>" . RSA_decryption($row["salary"], $priKey) . "</th>
           <th style='padding-top:20px;'>" . $row["gender"] . "</th>
-          <th style='padding-top:20px;'>" . $row["address"] . "</th>
-          <th style='padding-top:20px;'>" . $row["ID_Card_No"] . "</th>
-          <th style='padding-top:20px;'>" . $row["tel"] . "</th>";
+          <th style='padding-top:20px;'>" . RSA_decryption($row["address"], $priKey) . "</th>
+          <th style='padding-top:20px;'>" . RSA_decryption($row["ID_Card_No"], $priKey) . "</th>
+          <th style='padding-top:20px;'>" . RSA_decryption($row["tel"], $priKey) . "</th>";
       ?>
           <th style='padding-top:20px;'>
             <p>

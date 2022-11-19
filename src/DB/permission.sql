@@ -10,6 +10,9 @@ Grant select on comp3335.Department to 'HR_Dept_Staff';
 # IT_Dept_Staff
 create Role if not exists 'IT_Dept_Staff';
 create view itData as select firstName ,lastName, user_id , deptName from  Department inner join Employee using (Dept_id)  ;
+create view showAC_Id as Select user_id from Account ;
+grant select on showAC_Id to 'HR_Dept_Staff';
+
 Grant select on itData to 'IT_Dept_Staff';
 Grant select on comp3335.Project to 'IT_Dept_Staff';
 Grant select on comp3335.Team    to 'IT_Dept_Staff';

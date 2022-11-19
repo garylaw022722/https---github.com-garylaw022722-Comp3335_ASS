@@ -17,7 +17,6 @@ $internal_uid =  $user_id.'@%';
 
 session_start();
 $uuid =  $_SESSION["id"];
-echo $_SESSION[$uuid];
 $profile =json_decode($_SESSION[$uuid]);
 $conn = getConnection($profile);
 
@@ -78,7 +77,7 @@ if ($_POST["action"]=="register"){
           $publicKey= openssl_pkey_get_details($privateKey_Pem); 
           file_put_contents($desetination_Path."/".$user_id."_PK.pem", $publicKey['key']);
 
-          // echo  "<script>window.location.href='register.html'; </script>";
+          echo  "<script>window.location.href='register.html'; </script>";
 
         }
     }
