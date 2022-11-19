@@ -186,7 +186,6 @@ $con = getConnection(json_decode($_SESSION[$uuid]));
         $counter = 0;
         while ($row = $result->fetch_assoc()) {
           $Skey_Path = "../../secure/{$row['user_id']}/{$row['user_id']}_SK.pem";
-          echo $Skey_Path;
           $priKey = openssl_get_privatekey(file_get_contents($Skey_Path));
           echo "<tr><th style='padding-top:20px;'>" . $row['user_id'] . "</th>
           <th style='padding-top:20px;'>" . $row["deptName"] . "</th>
