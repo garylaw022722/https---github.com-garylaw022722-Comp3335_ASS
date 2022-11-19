@@ -55,10 +55,10 @@ if (isset(
     $tel=RSA_encryption($_POST["tel"],$pubKey);
     $gender = $_POST["gender"];
     
- 
+    
 
     $preState->execute();
-
+    echo $ID_Card_No;
     echo strlen($ID_Card_No);
     echo $preState->affected_rows;
     exit();
