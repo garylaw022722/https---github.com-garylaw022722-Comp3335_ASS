@@ -1,6 +1,9 @@
 {
-    "user":"Alice123",
+    "user":"Alice",
     "pwd":"123",
     "host":"mysql_db",
-    "database":"comp3335"
+    "database":"comp3335",
+    "Role":"Admin",
+    "default":"root",
+    "default_pwd":"root"
 }

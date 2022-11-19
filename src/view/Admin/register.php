@@ -30,7 +30,7 @@ if ($_POST["action"]=="register"){
         $preState->bind_param("s",$user_id);
         $preState->execute();
         $result =$preState->get_result();
-
+      
 
         if(mysqli_num_rows($result)==1){    
             echo "<h1 >Duplicated </h1>";

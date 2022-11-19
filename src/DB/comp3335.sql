@@ -112,5 +112,3 @@ insert into Task (task_id, project_id, assigner, assignee, details) values(2, 2,
 insert into Team values(1, "MSA1234585", 1);
 insert into Team values(2, "jo324423", 2);
 
-
-    
