@@ -23,13 +23,17 @@ There are 9 tables and 5 roles in our system.
 - Perform select, insert, update for Account table
 - Granting roles for user
 - Freeze user account
+
 **IT_Direct_Manager:
 - Perform select, insert, update, delete for Project, Task and Team tables
+
 **IT_Dept_Staff:
 - Perform select for view-itData table which record user_id, lastName, firstName columns in Employee table
 - Perform select for Project, Task and Team tables.
+
 **HR_Dept_Staff:
 - Perform select, insert, update for Employee table
 - Perform select for Department table
+
 **Sales_Dept_Staff:
 - Perform select, insert, update for Orders, Product and Customer tables
