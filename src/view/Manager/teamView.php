@@ -152,7 +152,11 @@ style="margin-top:30px;margin-left:30px;"
 
 
   <?php
-include('../../php/db_connect.php');
+require_once("../../php/db_Connection.php");
+
+$uuid =  $_SESSION["id"];
+$con = getConnection(json_decode($_SESSION[$uuid]));
+
 $sql = "SELECT * FROM Team";
 $result = $con->query($sql);
 if ($result->num_rows > 0) {
