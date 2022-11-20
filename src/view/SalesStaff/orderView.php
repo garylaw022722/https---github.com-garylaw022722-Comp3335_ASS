@@ -122,7 +122,7 @@ background-color:red;
            >
 
            <label for="recipient-name" class="col-form-label">orderAt: </label>
-           <input type="text" class="form-control" id="recipient-name" class="orderAt" id="orderAt"
+           <input type="date" class="form-control" id="recipient-name" class="orderAt" id="orderAt"
            placeholder="Please enter orderAt"
            name="orderAt"
            >
@@ -279,7 +279,7 @@ while($row = $result->fetch_assoc()) {
             >
 
             <label for="recipient-name" class="col-form-label">Order At:</label>
-            <input type="text" class="form-control" id="recipient-name" class="title" name="orderAt"
+            <input type="date" class="form-control" id="recipient-name" class="title" name="orderAt"
           
             >
 

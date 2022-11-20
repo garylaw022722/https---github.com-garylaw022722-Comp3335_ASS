@@ -92,7 +92,7 @@ if (mysqli_num_rows($result) == 0) {
 
     $data = mysqli_fetch_assoc($result);
     if ($data["freeze"]=='T'){
-        echo "<h1> Acesss Deline </h1>";
+        echo "<h1> Access Denied. </h1>";
         exit();
     }
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
