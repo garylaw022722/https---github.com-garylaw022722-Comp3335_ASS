@@ -1,5 +1,7 @@
 <?php
-require_once "../../php/db_connect.php";
+include('../../php/db_Connection.php');
+
+$uuid =  $_SESSION["id"];
 ?>
 <html>
 
@@ -89,8 +91,11 @@ require_once "../../php/db_connect.php";
       </tr>
     </thead>
     <?php
+    $conn = getConnection(json_decode($_SESSION[$uuid]));
     $sql = "SELECT * FROM comp3335.Project;";
-    $result = $con->query($sql);
+    $preState = $conn->prepare($sql);
+    $preState->execute();
+    $result =$preState->get_result();
 
     if ($result->num_rows > 0) {
       // output data of each row

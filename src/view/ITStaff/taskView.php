@@ -1,5 +1,7 @@
 <?php
-require_once "../../php/db_connect.php";
+include('../../php/db_Connection.php');
+
+$uuid =  $_SESSION["id"];
 ?>
 <html>
 
@@ -93,8 +95,11 @@ require_once "../../php/db_connect.php";
       </tr>
     </thead>
     <?php
+    $conn = getConnection(json_decode($_SESSION[$uuid]));
     $sql = "SELECT comp3335.Task.*, comp3335.Project.title FROM comp3335.Task INNER JOIN comp3335.Project on comp3335.Task.project_id=comp3335.Project.project_id;";
-    $result = $con->query($sql);
+    $preState = $conn->prepare($sql);
+    $preState->execute();
+    $result =$preState->get_result();
 
     if ($result->num_rows > 0) {
       // output data of each row
