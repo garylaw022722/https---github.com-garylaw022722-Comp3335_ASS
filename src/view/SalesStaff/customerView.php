@@ -230,7 +230,7 @@ echo "0 results";
         <form action="php/insertCustomer.php" method="post">
           <div class="form-group">
         
-          <label for="recipient-name" class="col-form-label">Email:</label>
+          <label for="recipient-name" class="col-form-label">email:</label>
             <input type="text" class="form-control" id="recipient-name" class="title" name='email'
             >
 
@@ -239,7 +239,7 @@ echo "0 results";
           
             >
 
-            <label for="recipient-name" class="col-form-label">Tel:</label>
+            <label for="recipient-name" class="col-form-label">tel:</label>
             <input type="text" class="form-control" id="recipient-name" class="title" name='tel'
           
             >

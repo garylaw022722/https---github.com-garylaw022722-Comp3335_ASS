@@ -1,5 +1,7 @@
 <?php
-include_once('../../../php/db_connect.php');
+include('../../../php/db_Connection.php');
+session_start();
+$uuid =  $_SESSION["id"];
 if(isset(
     $_POST['ord_id'],
     $_POST['p_id'],
@@ -9,22 +11,20 @@ if(isset(
     $_POST['email'],))
     
     {
-    $ord_id = $_POST['ord_id'];
-    $p_id = $_POST['p_id'];
-    $quantity = $_POST['quantity'];
-    $totalPrice = $_POST['totalPrice'];
-    $orderAt = $_POST['orderAt'];
-    $email = $_POST['email'];
 
+        $conn = getConnection(json_decode($_SESSION[$uuid])); 
+        $sql = "INSERT INTO Orders(ord_id,pid,quantity,totalPrice,orderAt,email) values (?,?,?,?,?,?)";
+        $preState =$conn->prepare($sql);
+        $preState->bind_param("ssssss",$ord_id, $pid, $quantity, $totalPrice, $orderAt, $email);
+        $ord_id = $_POST['ord_id'];
+        $pid = $_POST['p_id'];
+        $quantity = $_POST['quantity'];
+        $totalPrice = $_POST['totalPrice'];
+        $orderAt = $_POST['orderAt'];
+        $email = $_POST['email'];
+        $preState->execute();
 
-
-
-    $sql = "INSERT INTO Orders(ord_id,pid,quantity,totalPrice,orderAt,email)
-     VALUES ('$ord_id','$p_id', '$quantity', '$totalPrice', '$orderAt' ,'$email');";
-
-    $query= mysqli_query($con,$sql);
-    $lastId = mysqli_insert_id($con);
-    if($query ==true)
+    if($preState == true)
     {
 
       
@@ -35,12 +35,12 @@ if(isset(
     else
     {
 
-        header( "Location:../main.php?msg=".urlencode("Order ID and pid should be unique"));
+        header( "Location:../main.php?msg=".urlencode("Email should be unique"));
     } 
 
 
 }else{
-    echo "Missing Data";
+    header( "Location:../main.php?msg=".urlencode("Miss Data"));
 }
 
 ?>
