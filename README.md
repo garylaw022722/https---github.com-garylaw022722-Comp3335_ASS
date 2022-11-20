@@ -1,7 +1,9 @@
 # https---github.com-garylaw022722-Comp3335_ASS
 
 This project aimed to develop a docker-compose stack to set up a LAMP stack.
+
 Our sample system is a database for a sales company.
+
 There are 9 tables and 5 roles in our system.
 
 #Step:
