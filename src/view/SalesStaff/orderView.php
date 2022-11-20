@@ -1,7 +1,3 @@
-<?php
-require_once "../../php/db_connect.php";
-?>
-
 <html>
   <head>
   <meta charset="utf-8">
