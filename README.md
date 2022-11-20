@@ -19,6 +19,7 @@ There are 9 tables and 5 roles in our system.
     the database password is stored in data.txt
 
 #Role privileges
+
 **Admin:
 - Perform select, insert, update for Account table
 - Granting roles for user
