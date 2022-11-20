@@ -108,9 +108,9 @@ background-color:red;
            <p   id="ord_id" class="form-control"></p>
 
            <label for="recipient-name" class="col-form-label">pid: </label>
-           <input type="text" class="form-control" id="recipient-name" class="pid" id="pid"
+           <input type="text" class="form-control" id="recipient-name" class="p_id" id="p_id"
            placeholder="Please enter pid"
-           name="pid"
+           name="p_id"
            >
 
            <label for="recipient-name" class="col-form-label">quantity: </label>
