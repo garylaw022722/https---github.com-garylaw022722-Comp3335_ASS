@@ -1,7 +1,3 @@
-<?php
-require_once "../../php/db_connect.php";
-?>
-
 <html>
   <head>
   <meta charset="utf-8">
@@ -126,7 +122,7 @@ background-color:red;
            >
 
            <label for="recipient-name" class="col-form-label">orderAt: </label>
-           <input type="text" class="form-control" id="recipient-name" class="orderAt" id="orderAt"
+           <input type="date" class="form-control" id="recipient-name" class="orderAt" id="orderAt"
            placeholder="Please enter orderAt"
            name="orderAt"
            >
@@ -179,7 +175,11 @@ style="margin-top:30px;margin-left:30px;"
     </tr>
   </thead>
 <?php
-include('../../php/db_connect.php');
+require_once("../../php/db_Connection.php");
+
+$uuid =  $_SESSION["id"];
+$con = getConnection(json_decode($_SESSION[$uuid]));
+
 $sql = "SELECT * FROM Orders";
 $result = $con->query($sql);
 
@@ -279,7 +279,7 @@ while($row = $result->fetch_assoc()) {
             >
 
             <label for="recipient-name" class="col-form-label">Order At:</label>
-            <input type="text" class="form-control" id="recipient-name" class="title" name="orderAt"
+            <input type="date" class="form-control" id="recipient-name" class="title" name="orderAt"
           
             >
 
